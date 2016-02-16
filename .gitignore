@@ -31,5 +31,7 @@
 
 # "temporary" build files
 /target
+/build
+/out
 
 /*.iml
