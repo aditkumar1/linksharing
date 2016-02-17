@@ -10,7 +10,7 @@ class FirstController {
 
         log.error("Hi Manvender error")
         log.debug("Hi Manvender debug")
-        log.debug(params)
+        log.debug(params.getClass())
         render "Hello this is my first program";
     }
 }
