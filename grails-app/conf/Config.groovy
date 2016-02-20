@@ -104,6 +104,9 @@ log4j.main = {
     //
     //appenders {
     //    console name:'stdout', layout:pattern(conversionPattern: '%c{2} %m%n')
+    appenders {
+        console name: 'stdout', layout: pattern(conversionPattern: '%d{yyy-MM-dd HH:mm:ss,SSS} %p %c{2} %m%n')
+    }
     //}
 
     error  'org.codehaus.groovy.grails.web.servlet',        // controllers
@@ -119,4 +122,6 @@ log4j.main = {
            'net.sf.ehcache.hibernate'
 
     debug 'grails.app'
+
+
 }

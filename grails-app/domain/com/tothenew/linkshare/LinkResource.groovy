@@ -8,4 +8,8 @@ class LinkResource extends Resource{
     static constraints = {
         url url:true;
     }
+    @Override
+    String toString() {
+        return url;
+    }
 }

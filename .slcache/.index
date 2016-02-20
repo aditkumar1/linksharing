@@ -3931,3 +3931,8 @@ n:2571:script14556174340501016318354$_run_closure2$_closure8
 n:3194:script14556174340501016318354$_run_closure3
 n:2444:script1455619188917527227376
 n:2444:script1455619189874527227376
+n:2444:script1455791592812527227376
+n:721:org/codehaus/groovy/runtime/dgm$447
+n:2145:org/codehaus/groovy/grails/plugins/log4j/Log4jConfig$populate$0
+n:1437:org/apache/log4j/spi/OptionHandler$activateOptions
+n:2444:script1455791593646527227376
