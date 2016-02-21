@@ -6,15 +6,22 @@ class User {
     String password;
     String firstName;
     String lastName;
+    String confirmPassword;
     byte[] photo;
     Boolean admin;
     Boolean active;
     Date dateCreated;
     Date lastUpdated;
 
-    static transients = ['getName'];
+    static transients = ['name','confirmPassword'];
     String getName() {
         return "${firstName} ${lastName}";
+    }
+    String getConfirmPassword(){
+        return confirmPassword;
+    }
+    void setConfirmPassword(String password){
+        confirmPassword=password;
     }
     static constraints = {
         email unique:true, email:true, nullable:false, blank :false;
@@ -24,7 +31,10 @@ class User {
         photo nullable:true, blank:true;
         admin nullable:true, blank:true;
         active nullable:true, blank:true;
-
+        confirmPassword nullable: false, blank: false, minSize: 5;
+        confirmPassword validator:{value,user->
+            return value==user.password;
+        }
     }
     static mapping = {
         photo(sqlType: 'longblob')

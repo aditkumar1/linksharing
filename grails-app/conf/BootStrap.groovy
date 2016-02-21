@@ -47,6 +47,7 @@ class BootStrap {
             createResources(savedTopics);
         }
         else {
+            log.info("Resources already created\n");
             return false;
         }
 
@@ -54,8 +55,8 @@ class BootStrap {
     }
     List<User> createUsers() {
         List<User> savedUsers=new ArrayList<User>();
-        User user1=new User(email: "manvendra.singh@tothenew.com",username: "manvendra.singh",password: PASSWORD,firstName: "Manvendra",lastName: "Singh",admin: true,active: true);
-        User user2=new User(email: "adit.kumar@tothenew.com",username: "adit.kumar",password: PASSWORD,firstName: "Adit",lastName: "Kumar",admin: false,active: true);
+        User user1=new User(email: "manvendra.singh@tothenew.com",username: "manvendra.singh",password: PASSWORD,confirmPassword: PASSWORD,firstName: "Manvendra",lastName: "Singh",admin: true,active: true);
+        User user2=new User(email: "adit.kumar@tothenew.com",username: "adit.kumar",password: PASSWORD,confirmPassword: PASSWORD,firstName: "Adit",lastName: "Kumar",admin: false,active: true);
 
         if(saveUser(user1,savedUsers) && saveUser(user2,savedUsers)) {
             log.info("User list created. Count : ${savedUsers.size()}\n");
