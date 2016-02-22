@@ -15,7 +15,7 @@ class LoginController {
 
     }
     def loginHandler(String username,String password){
-        User loggedInUser =User.findWhere(username: username,password: password);
+
         if(loggedInUser){
             if(loggedInUser.active){
                 session.user=loggedInUser;
