@@ -39,9 +39,10 @@ class User {
     static mapping = {
         photo(sqlType: 'longblob')
     }
-    static hasMany = [topics:Topic,subscriptions:Subscription,readingitems:ReadingItem,resources:Resource,resourceratings:ResourceRating];
-
+    
     String toString(){
         return username;
     }
+
+    static hasMany = [topics:Topic,subscriptions:Subscription,readingItems:ReadingItem,resources:Resource];
 }

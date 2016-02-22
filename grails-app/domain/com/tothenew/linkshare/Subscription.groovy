@@ -2,7 +2,6 @@ package com.tothenew.linkshare
 
 class Subscription {
 
-    Topic topic;
     User user;
     Seriousness seriousness;
     Date dateCreated;
