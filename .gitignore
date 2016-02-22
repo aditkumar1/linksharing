@@ -17,7 +17,7 @@
 /stacktrace.log
 /test/reports
 /logs
-
+/.idea
 # project release file
 /*.war
 
