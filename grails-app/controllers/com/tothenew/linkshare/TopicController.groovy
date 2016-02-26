@@ -23,12 +23,22 @@ class TopicController {
             }
         }
         else {
-            redirect(controller: "Login" , action: "index");
+            //redirect(controller: "Login" , action: "index");
             flash.error="Topic not found";
         }
         render flash.error
     }
     def save(Topic topic, String seriousness){
-
+        try{
+            topic.createdBy=session.user
+            topic.save(failOnError: true)
+            flash.error="Requested Topic is saved"
+        }
+        catch(Exception ex){
+            flash.error="Exception caught :${ex.toString()}"
+        }
+        finally {
+            render flash.error
+        }
     }
 }

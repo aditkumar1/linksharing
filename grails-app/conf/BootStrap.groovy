@@ -14,13 +14,17 @@ class BootStrap {
         println "......................."
         println grailsApplication.config.grails.app.context
         println ">..>>>>>>>>>>>>>>>>>>>>>"
-        if(initialize()){
-//            log.info("Requirement fullfilled")
-        }
-        else{
-//            log.info("Requirement not fullfilled");
-        }
+//        if(initialize()){
 
+//            log.info("Requirement fullfilled")
+//        }
+//        else{
+//            log.info("Requirement not fullfilled");
+//        }
+
+        if (User.count() == 0) {
+            initialize()
+        }
     }
 
     Boolean initialize(){

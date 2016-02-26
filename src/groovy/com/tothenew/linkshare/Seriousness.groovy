@@ -5,5 +5,8 @@ package com.tothenew.linkshare
  */
 enum Seriousness {
     SERIOUS,VERY_SERIOUS,CASUAL;
+    static Seriousness getSeriousness(String seriousness){
+        return (seriousness.toUpperCase() as Seriousness)
+    }
 
 }

@@ -3,7 +3,7 @@ package com.tothenew.linkshare
 class Subscription {
 
     User user;
-    Seriousness seriousness;
+    Seriousness seriousness = Seriousness.SERIOUS;
     Date dateCreated;
     Date lastUpdated;
 
@@ -12,5 +12,11 @@ class Subscription {
         topic nullable:false, blank:false;
         user unique:['topic'];
     }
+    static  mapping = {
+        user(lazy: false)
+        topic( lazy:false)
+    }
+    //static fetchMode=[user:'eager',topic:'eager']
+
     static belongsTo = [topic:Topic];
 }

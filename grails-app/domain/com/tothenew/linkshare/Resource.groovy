@@ -56,12 +56,20 @@ abstract class Resource {
     }
 
     static namedQueries = {
-        search(){
-            resourceSearchCo ->
-                eq(topic.id,resourceSearchCo.topicId)
-                eq(topic.visibility,resourceSearchCo.visibility)
+        search { ResourceSearchCo co ->
+            if (co.topicId) {
+                eq('topic_id', co.topicId)
+            }
+            if (co.visibility)
+            {
+                'topic'
+                        {
+                            eq('visibility', co.visibility)
+                        }
+            }
         }
     }
+
 
 }
 //https://docs.google.com/a/tothenew.com/document/d/1y4b2I5IXoHibL34Cur2NKF4dq6rN_fapYYwWMGtV5HU/edit?usp=sharing

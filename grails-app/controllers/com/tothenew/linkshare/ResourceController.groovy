@@ -4,7 +4,7 @@ class ResourceController {
 
     def delete(int id) {
         try {
-            Resource.load(id).delete()
+            Resource.load(id).delete(flush:true)
             render "Resource Deleted "+id
         }
         catch(Exception e){
