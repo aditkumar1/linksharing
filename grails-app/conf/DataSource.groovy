@@ -1,4 +1,5 @@
 dataSource {
+    loggingSql =true
     pooled = true
     jmxExport = true
     driverClassName = "com.mysql.jdbc.Driver"

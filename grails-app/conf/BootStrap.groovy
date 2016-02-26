@@ -15,13 +15,14 @@ class BootStrap {
         println grailsApplication.config.grails.app.context
         println ">..>>>>>>>>>>>>>>>>>>>>>"
         if(initialize()){
-            log.info("Requirement fullfilled")
+//            log.info("Requirement fullfilled")
         }
         else{
-            log.info("Requirement not fullfilled");
+//            log.info("Requirement not fullfilled");
         }
 
     }
+
     Boolean initialize(){
         List<User> savedUsers;
         List<User> savedTopics;
@@ -31,7 +32,7 @@ class BootStrap {
             savedUsers= createUsers() ;
         }
         else {
-            log.info("User Table is not Empty\n");
+//            log.info("User Table is not Empty\n");
             return false;
         }
 
@@ -40,18 +41,18 @@ class BootStrap {
 
         }
         else {
-            log.info("Topics already created\n");
+//            log.info("Topics already created\n");
             return false;
         }
         if(Resource.count==0) {
             createResources(savedTopics);
         }
         else {
-            log.info("Resources already created\n");
+//            log.info("Resources already created\n");
             return false;
         }
 
-        return SubscribeTopics(savedUsers,savedTopics)&&createReadingItems()&&createResourceRating();
+        return SubscribeTopics(savedUsers,savedTopics)&&createReadingItems(savedUsers,savedTopics)&&createResourceRating();
     }
     List<User> createUsers() {
         List<User> savedUsers=new ArrayList<User>();
@@ -59,16 +60,15 @@ class BootStrap {
         User user2=new User(email: "adit.kumar@tothenew.com",username: "adit.kumar",password: PASSWORD,confirmPassword: PASSWORD,firstName: "Adit",lastName: "Kumar",admin: false,active: true);
 
         if(saveUser(user1,savedUsers) && saveUser(user2,savedUsers)) {
-            log.info("User list created. Count : ${savedUsers.size()}\n");
+//            log.info("User list created. Count : ${savedUsers.size()}\n");
         }
         return savedUsers;
     }
 
     Boolean saveUser(User user,List<User> savedUsers) {
-
         try {
              user.save(flush: true,failOnError: true)
-             log.info("New User Saved. Details : ${user}\n");
+//             log.info("New User Saved. Details : ${user}\n");
              savedUsers.add(user);
              return true;
         }
@@ -89,7 +89,7 @@ class BootStrap {
         }
 
         if(saveTopics(newTopics,savedTopics)) {
-            log.info("Required Topics list per User created. Count : ${newTopics.size()}\n");
+//            log.info("Required Topics list per User created. Count : ${newTopics.size()}\n");
         }
         return savedTopics;
     }
@@ -99,7 +99,7 @@ class BootStrap {
             if(newTopics) {
                 newTopics.each {
                     it.save(flush: true, failOnError: true);
-                    log.info("New Topic Saved. Details : ${it}\n");
+//                    log.info("New Topic Saved. Details : ${it}\n");
                     savedTopics.add(it);
                 }
             }
@@ -120,15 +120,13 @@ class BootStrap {
                 new DocumentResource(description: it.name,createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a1").save(failOnError:true);
                 new DocumentResource(description: it.name,createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a2").save(failOnError:true);
             }
-            log.info("Resources creation successful");
+//            log.info("Resources creation successful");
             return true;
-
         }
         catch(ValidationException ve){
             log.error("Resource Creation failed. Exception details : ${ve.toString()}\n");
             return false;
         }
-
     }
 
     Boolean SubscribeTopics(List<User> savedUser,List<Topic> savedTopics) {
@@ -138,7 +136,7 @@ class BootStrap {
                     try{
                           Subscription subscription=new Subscription(topic:topic,user:user,seriousness:Seriousness.VERY_SERIOUS);
                           subscription.save(failOnError: true);
-                          log.info("New Subscription Created. Deatils : ${subscription}") ;
+//                          log.info("New Subscription Created. Deatils : ${subscription}") ;
                     }
                     catch(ValidationException ve){
                         log.error("Subscription creation failed. Error Details : ${ve.toString()}");
@@ -148,34 +146,39 @@ class BootStrap {
             }
         }
         return true;
-
     }
 
-    Boolean createReadingItems(){
-        Resource.all.each {resource->
-            if(!Subscription.findWhere(user:resource.createdBy,topic: resource.topic)){
-                if(!ReadingItem.findByUser(resource.createdBy)){
-                    try{
-                        ReadingItem readingitem=new ReadingItem(resource:resource,user:resource.createdBy,isRead: false);
-                        readingitem.save(failOnError: true);
-                        log.info("New reading item created. Details : ${readingitem}");
+    Boolean createReadingItems(List<User> savedUsers,List<Topic> savedTopics){
+        savedUsers.each {user->
+            savedTopics.each {topic->
+                if(Subscription.findWhere(user:user,topic: topic)){
+                    Resource.findAllWhere(topic: topic).each {resource->
+                        if(!ReadingItem.findAllWhere(user: user,resource: resource)){
+                            try{
+                                ReadingItem readingItem=new ReadingItem(resource:resource,user:user,isRead: false);
+                                readingItem.save(failOnError: true);
+//                                log.info("New reading item created. Details : ${readingItem}");
+                            }
+                            catch(ValidationException ve){
+                                log.error("Reading Item creation failed. Error Details : ${ve.toString()}");
+                                return false;
+                            }
+                        }
                     }
-                    catch(ValidationException ve){
-                        log.error("Reading Item creation failed. Error Details : ${ve.toString()}");
-                        return false;
-                    }
+
                 }
             }
+
         }
         return true;
     }
 
     Boolean createResourceRating(){
-        ReadingItem.findByIsRead(Boolean.FALSE).each {
+        ReadingItem.findAllByIsRead(false).each {
             try{
-                ResourceRating resourceRating=new ResourceRating(user:it.user,resource: it.resource,score: 2);
+                ResourceRating resourceRating=new ResourceRating(ratedBy: it.user,resource: it.resource,score: 2);
                 resourceRating.save(failOnError: true);
-                log.info("New resource rating created. Details : ${resourceRating}");
+//                log.info("New resource rating created. Details : ${resourceRating}");
             }
             catch(ValidationException ve){
                 log.error("Resource rating creation failed. Error Details : ${ve.toString()}");

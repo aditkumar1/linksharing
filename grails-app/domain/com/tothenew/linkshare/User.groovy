@@ -38,6 +38,7 @@ class User {
     }
     static mapping = {
         photo(sqlType: 'longblob')
+        sort(id: "desc")
     }
     
     String toString(){

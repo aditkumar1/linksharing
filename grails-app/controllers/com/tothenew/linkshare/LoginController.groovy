@@ -9,13 +9,15 @@ class LoginController {
         if(session.user){
             redirect(controller:"User",action:"index");
         }
-        else{
-            render("Failure");
+        else {
+            render((Resource.getTopPost().inject("<html><body>Top Posts - ") {
+                result, post -> result + '<br/>' + post
+            }) + '</body></html>')
         }
-
+                //render("Failure");
     }
     def loginHandler(String username,String password){
-
+        User loggedInUser =User.findWhere(username: username,password: password);
         if(loggedInUser){
             if(loggedInUser.active){
                 session.user=loggedInUser;

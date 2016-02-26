@@ -125,3 +125,5 @@ log4j.main = {
 
 
 }
+
+grails.plugin.console.enabled = true
