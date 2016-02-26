@@ -5,7 +5,7 @@ class ResourceController {
     def delete(int id) {
         try {
             Resource.load(id).delete()
-            render "Resource Deleted"
+            render "Resource Deleted "+id
         }
         catch(Exception e){
             flash.error=e.toString()
