@@ -1,6 +1,6 @@
 package com.tothenew.linkshare
 
-import com.tothenew.linkshare.LinkResource
+import com.tothenew.linkshare.resource.LinkResource
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 

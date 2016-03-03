@@ -1,6 +1,6 @@
 package com.tothenew.linkshare
 
-import com.tothenew.linkshare.User
+import com.tothenew.linkshare.user.User
 import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import spock.lang.Specification
@@ -37,7 +37,7 @@ class UserSpec extends Specification {
         !User.constraints.lastName.getAppliedConstraint("blank").parameter;
 
         User.constraints.photo.getAppliedConstraint("nullable").parameter;
-//        User.constraints.photo.getAppliedConstraint("blank").parameter;
+//        user.constraints.photo.getAppliedConstraint("blank").parameter;
 
         User.constraints.admin.getAppliedConstraint("nullable").parameter;
 

@@ -1,6 +1,6 @@
 package com.tothenew.linkshare
 
-import com.tothenew.linkshare.ResourceRating
+import com.tothenew.linkshare.resource.ResourceRating
 import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import spock.lang.Specification
@@ -27,6 +27,6 @@ class ResourceRatingSpec extends Specification {
         ResourceRating.constraints.score.getAppliedConstraint("max").parameter==5
 
         !ResourceRating.constraints.resource.getAppliedConstraint("nullable").parameter
-        ResourceRating.constraints.resource.getAppliedConstraint("unique").parameter.get(0)=="user"
+        ResourceRating.constraints.resource.getAppliedConstraint("unique").parameter.get(0)=="subscribedBy"
     }
 }

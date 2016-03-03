@@ -1,5 +1,6 @@
 package com.tothenew.linkshare
 
+import com.tothenew.linkshare.resource.ReadingItemController
 import grails.test.mixin.TestFor
 import spock.lang.Specification
 

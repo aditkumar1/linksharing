@@ -1,7 +1,14 @@
-import com.tothenew.linkshare.*
+import com.tothenew.linkshare.resource.DocumentResource
+import com.tothenew.linkshare.resource.LinkResource
+import com.tothenew.linkshare.resource.ReadingItem
+import com.tothenew.linkshare.resource.Resource
+import com.tothenew.linkshare.resource.ResourceRating
+import com.tothenew.linkshare.topic.Topic
+import com.tothenew.linkshare.user.Seriousness
+import com.tothenew.linkshare.user.Subscription
+import com.tothenew.linkshare.user.User
+import com.tothenew.linkshare.topic.Visibility
 import grails.validation.ValidationException
-import org.apache.commons.logging.Log
-
 
 class BootStrap {
 
@@ -36,7 +43,7 @@ class BootStrap {
             savedUsers= createUsers() ;
         }
         else {
-//            log.info("User Table is not Empty\n");
+//            log.info("user Table is not Empty\n");
             return false;
         }
 
@@ -64,7 +71,7 @@ class BootStrap {
         User user2=new User(email: "adit.kumar@tothenew.com",username: "adit.kumar",password: PASSWORD,confirmPassword: PASSWORD,firstName: "Adit",lastName: "Kumar",admin: false,active: true);
 
         if(saveUser(user1,savedUsers) && saveUser(user2,savedUsers)) {
-//            log.info("User list created. Count : ${savedUsers.size()}\n");
+//            log.info("user list created. Count : ${savedUsers.size()}\n");
         }
         return savedUsers;
     }
@@ -72,12 +79,12 @@ class BootStrap {
     Boolean saveUser(User user,List<User> savedUsers) {
         try {
              user.save(flush: true,failOnError: true)
-//             log.info("New User Saved. Details : ${user}\n");
+//             log.info("New user Saved. Details : ${subscribedBy}\n");
              savedUsers.add(user);
              return true;
         }
         catch(ValidationException ve) {
-            log.error("User Creation failed. Exception details : ${ve.toString()}\n");
+            log.error("user Creation failed. Exception details : ${ve.toString()}\n");
             return false
         }
     }
@@ -93,7 +100,7 @@ class BootStrap {
         }
 
         if(saveTopics(newTopics,savedTopics)) {
-//            log.info("Required Topics list per User created. Count : ${newTopics.size()}\n");
+//            log.info("Required Topics list per user created. Count : ${newTopics.size()}\n");
         }
         return savedTopics;
     }
@@ -103,7 +110,7 @@ class BootStrap {
             if(newTopics) {
                 newTopics.each {
                     it.save(flush: true, failOnError: true);
-//                    log.info("New Topic Saved. Details : ${it}\n");
+//                    log.info("New com.tothenew.linkshare.topic Saved. Details : ${it}\n");
                     savedTopics.add(it);
                 }
             }
@@ -111,7 +118,7 @@ class BootStrap {
             return true;
         }
         catch(ValidationException ve) {
-            log.error("Topic Creation failed. Exception details : ${ve.toString()}\n");
+            log.error("com.tothenew.linkshare.topic Creation failed. Exception details : ${ve.toString()}\n");
             return false
         }
     }
@@ -128,7 +135,7 @@ class BootStrap {
             return true;
         }
         catch(ValidationException ve){
-            log.error("Resource Creation failed. Exception details : ${ve.toString()}\n");
+            log.error("resource Creation failed. Exception details : ${ve.toString()}\n");
             return false;
         }
     }
@@ -136,9 +143,9 @@ class BootStrap {
     Boolean SubscribeTopics(List<User> savedUser,List<Topic> savedTopics) {
         savedUser.each {user->
             savedTopics.each{topic->
-                if(!Subscription.findWhere(user: user,topic:topic)){
+                if(!Subscription.findWhere(subscribedBy: user,topic:topic)){
                     try{
-                          Subscription subscription=new Subscription(topic:topic,user:user,seriousness:Seriousness.VERY_SERIOUS);
+                          Subscription subscription=new Subscription(topic:topic, subscribedBy:user,seriousness:Seriousness.VERY_SERIOUS);
                           subscription.save(failOnError: true);
 //                          log.info("New Subscription Created. Deatils : ${subscription}") ;
                     }
@@ -155,7 +162,7 @@ class BootStrap {
     Boolean createReadingItems(List<User> savedUsers,List<Topic> savedTopics){
         savedUsers.each {user->
             savedTopics.each {topic->
-                if(Subscription.findWhere(user:user,topic: topic)){
+                if(Subscription.findWhere(subscribedBy:user,topic: topic)){
                     Resource.findAllWhere(topic: topic).each {resource->
                         if(!ReadingItem.findAllWhere(user: user,resource: resource)){
                             try{
@@ -185,7 +192,7 @@ class BootStrap {
 //                log.info("New resource rating created. Details : ${resourceRating}");
             }
             catch(ValidationException ve){
-                log.error("Resource rating creation failed. Error Details : ${ve.toString()}");
+                log.error("resource rating creation failed. Error Details : ${ve.toString()}");
                 return false;
             }
         }

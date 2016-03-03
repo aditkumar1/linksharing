@@ -1,6 +1,6 @@
 package com.tothenew.linkshare
 
-import com.tothenew.linkshare.Subscription
+import com.tothenew.linkshare.user.Subscription
 import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import spock.lang.Specification

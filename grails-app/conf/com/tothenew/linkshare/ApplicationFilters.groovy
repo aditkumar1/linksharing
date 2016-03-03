@@ -3,10 +3,17 @@ package com.tothenew.linkshare
 class ApplicationFilters {
 
     def filters = {
-        sessionCheck(controller: 'login',invert:true){
+//        redirectToLogin(controller: "*", action: "*") {
+//            before = {
+//                if (!session.user) {
+////                    redirect(controller: "login", action: "index")
+//                }
+//            }
+//        }
+        sessionCheck(controller: 'login', invert:true){
             before={
                 if(!session.user){
-                    redirect(controller:"Login",action:"index");
+                    redirect(controller:"login",action:"index");
                 }
             }
         }

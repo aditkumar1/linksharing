@@ -1,6 +1,6 @@
 package com.tothenew.linkshare
 
-import com.tothenew.linkshare.Topic
+import com.tothenew.linkshare.topic.Topic
 import grails.test.mixin.TestFor
 import grails.test.mixin.TestMixin
 import spock.lang.Specification
@@ -18,7 +18,7 @@ class TopicSpec extends Specification {
     def cleanup() {
     }
 
-    void "Check Topic Constraints"() {
+    void "Check com.tothenew.linkshare.Topic Constraints"() {
         expect:
         Topic.constraints.name.getAppliedConstraint("unique").parameter;
         !Topic.constraints.name.getAppliedConstraint("nullable").parameter;
