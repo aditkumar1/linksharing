@@ -3,7 +3,7 @@ package com.tothenew.linkshare.topic
  * Created by ttnd on 11/2/16.
  */
 enum Visibility {
-    PUBLIC,PRIVATE;
+    PRIVATE,PUBLIC;
 
     Visibility parseVisibility(String parseString) throws Exception{
         try{

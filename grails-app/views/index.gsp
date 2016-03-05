@@ -20,16 +20,16 @@
 </div>
 
 
-<g:render template="/topic/templates/create"/>
-<g:render template="/documentResource/templates/create"/>
-<g:render template="/linkResource/templates/create"/>
-<g:render template="/topic/templates/email"/>
+<g:render template="/topic/templates/create" />
+<g:render template="/documentResource/templates/create" model="[subscribedTopics: subscribedTopics]"/>
+<g:render template="/linkResource/templates/create" model="[subscribedTopics: subscribedTopics]"/>
+<g:render template="/topic/templates/email" model="[subscribedTopics: subscribedTopics]"/>
 
 
 
 %{--<g:message code="login.index.array.out.of.bounds"/>--}%
 %{--${g.message(code: "login.index.array.out.of.bounds")}--}%
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
             <g:if test="${flash.error}">
@@ -38,10 +38,10 @@
         </div>
     </div>
     <div class="row">
-        <div id="box-left" class="col-xs-5">
-            <g:render template="/templates/box-left" model="[user:user,subscribedTopics: subscribedTopics,createdTopics:createdTopics]"/>
+        <div id="box-left" class="col-xs-6">
+            <g:render template="/templates/box-left" model="[user:user,subscribedTopics: subscribedTopics,createdTopics:createdTopics,trendingTopics:trendingTopics]"/>
         </div>
-        <div id="box-right" class="col-xs-7">
+        <div id="box-right" class="col-xs-6">
             <g:render template="/templates/box-right"/>
         </div>
     </div>

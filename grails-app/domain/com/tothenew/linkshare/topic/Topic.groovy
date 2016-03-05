@@ -6,7 +6,6 @@ import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
 import grails.validation.ValidationException
 
-
 class Topic {
     String name
     User createdBy
@@ -46,11 +45,9 @@ class Topic {
     static List<TopicVO> getTrendingTopics(){
         List<TopicVO> topicVos= Topic.createCriteria().list(){
             projections{
-
                 groupProperty('id')
                 resources{
                     count('id','rCount')
-
                 }
                 property('name')
                 property('visibility')
@@ -64,7 +61,6 @@ class Topic {
             new TopicVO(id: it[0],count: it[1],name: it[2],visibility: it[3],createdBy: it[4])
         }
         return topicVos
-
     }
     List<User> getSubscribedUsers(){
         return Subscription.findAllByTopic(this).collect{

@@ -12,7 +12,7 @@
 
           <div class="row">
             <div class="col-sm-3">
-               <img class="img-thumbnail img-responsive" src="user.png" height=125px width=100px>
+               <asset:image class="img-thumbnail img-responsive" src="user.png" height="125px" width="100px"/>
             </div>
             <div class="col-sm-9">
               <div class="row">
@@ -43,7 +43,7 @@
 
           <div class="row">
             <div class="col-sm-3">
-              <img class="img-thumbnail img-responsive" src="user.png" height=125px width=100px>
+              <asset:image class="img-thumbnail img-responsive" src="user.png" height="125px" width="100px"/>
             </div>
             <div class="col-sm-9">
               <div class="row">

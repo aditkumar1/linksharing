@@ -25,13 +25,11 @@
 
                     <div class="form-group">
 
-                        <label for="inputText" class="control-label col-xs-2">com.tothenew.linkshare.Topic*</label>
+                        <label for="topicSelect" class="control-label col-xs-2">Topic*</label>
 
                         <div class="col-xs-10">
 
-                            <select class="form-control ">
-                                <option>com.tothenew.linkshare.topic</option>
-                            </select>
+                            <g:select class="form-control" id="topicSelect" name="topicSelect" from="${subscribedTopics}"></g:select>
 
                         </div>
 

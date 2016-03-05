@@ -22,8 +22,8 @@ class User {
     String getName() {
         return "${firstName} ${lastName}";
     }
-    List<TopicVO> getSubscribedTopics(){
-        return Subscription.findAllBySubscribedBy(this).collect{ subscription ->
+    List<TopicVO> getSubscribedTopics(offset,maxResults){
+        return Subscription.findAllBySubscribedBy(this,[max:maxResults,offset:offset]).collect{ subscription ->
             Topic topic = subscription.topic
             new TopicVO(id: topic.id, count: topic.resources.size(), name: topic.name, createdBy: topic.createdBy, visibility: topic.visibility)
         }
@@ -52,9 +52,9 @@ class User {
         sort(id: "desc")
     }
     
-    String toString(){
-        return username;
-    }
+//    String toString(){
+//        return username;
+//    }
 
     static hasMany = [topics:Topic, subscriptions:Subscription, readingItems:ReadingItem, resources:Resource];
 }

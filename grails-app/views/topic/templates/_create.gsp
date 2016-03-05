@@ -1,5 +1,3 @@
-
-
 <div class="modal fade" id="createTopic" role="dialog">
     <div class="modal-dialog">
 
@@ -7,7 +5,7 @@
         <div class="modal-content">
             <div class="modal-header" style="background-color:#D3D3D3">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Create com.tothenew.linkshare.topic</h4>
+                <h4 class="modal-title">Create Topic</h4>
             </div>
 
             <div class="modal-body">
@@ -31,9 +29,8 @@
 
                         <div class="col-xs-10">
 
-                            <select class="form-control " id="visibility">
-                                <option>Public</option>
-                            </select>
+                            <g:select class="form-control " id="visibility" name="visibility" from="${com.tothenew.linkshare.topic.Visibility.values()}">
+                            </g:select>
 
                         </div>
 
