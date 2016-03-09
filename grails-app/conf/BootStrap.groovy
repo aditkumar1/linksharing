@@ -126,10 +126,10 @@ class BootStrap {
     Boolean createResources(List<Topic> savedTopics){
         try{
             savedTopics.each {
-                new LinkResource(description: it.name,createdBy: it.createdBy,topic: it,url: "http://www.download.com").save(failOnError:true);
-                new LinkResource(description: it.name,createdBy: it.createdBy,topic: it,url: "http://www.download.com").save(failOnError:true);
-                new DocumentResource(description: it.name,createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a1").save(failOnError:true);
-                new DocumentResource(description: it.name,createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a2").save(failOnError:true);
+                new LinkResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,url: "http://www.download.com").save(failOnError:true);
+                new LinkResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,url: "http://www.download.com").save(failOnError:true);
+                new DocumentResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a1").save(failOnError:true);
+                new DocumentResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a2").save(failOnError:true);
             }
 //            log.info("Resources creation successful");
             return true;

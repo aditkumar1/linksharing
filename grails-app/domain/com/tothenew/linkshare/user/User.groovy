@@ -18,7 +18,7 @@ class User {
     Date dateCreated;
     Date lastUpdated;
 
-    static transients = ['name','confirmPassword','subscribedTopics'];
+    static transients = ['name','confirmPassword','subscribedTopics','userSubscriptionsCount','userTopicsCount'];
     String getName() {
         return "${firstName} ${lastName}";
     }
@@ -28,6 +28,28 @@ class User {
             new TopicVO(id: topic.id, count: topic.resources.size(), name: topic.name, createdBy: topic.createdBy, visibility: topic.visibility)
         }
     }
+    int getUserTopicsCount() {
+        return User.createCriteria().get {
+            projections {
+                topics {
+                    count('id')
+                }
+            }
+            eq('id', this.id.toLong())
+        } ?: 0
+    }
+    int getUserSubscriptionsCount(){
+
+        return User.createCriteria().get{
+            projections{
+                subscriptions{
+                    count('id')
+                }
+            }
+            eq('id',this.id.toLong())
+        }?:0
+    }
+
     String getConfirmPassword(){
         return confirmPassword;
     }

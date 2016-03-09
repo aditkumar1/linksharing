@@ -14,9 +14,9 @@
 
 <body>
 <div id="header" >
-    <g:render template="/login/templates/header"/>
+    <g:render template="/templates/header-home-page"/>
 </div>
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div id="box-left" class="col-xs-7">
             <g:render template="/login/templates/box-left" model="[recentPosts:recentPosts]"></g:render>

@@ -16,7 +16,7 @@
 <body>
 
 <div id="header">
-    <g:render template="/templates/header"/>
+    <g:render template="/templates/header-dashboard"/>
 </div>
 
 

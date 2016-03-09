@@ -1,35 +1,39 @@
 package com.tothenew.linkshare.topic
 
-import com.tothenew.linkshare.resource.ResourceSearchCo
+import com.tothenew.linkshare.resource.Resource
+import com.tothenew.linkshare.resource.ResourceSearchCO
 import com.tothenew.linkshare.user.Subscription
+import com.tothenew.linkshare.user.User
 
 class TopicController {
 
-    def show(int id, ResourceSearchCo resourceSearchCo){
+    def show(int id, ResourceSearchCO resourceSearchCo){
         Topic requestedTopic=Topic.read(id);
         if(requestedTopic){
             switch(requestedTopic.visibility){
-                case Visibility.PUBLIC:
-                    render("Success");
-                    break;
                 case Visibility.PRIVATE:
                     if(Subscription.findWhere(topic: requestedTopic, subscribedBy: session.user)){
-                        render("Success");
+
                     }
                     else{
                         redirect(controller: "login",action: "index");
                         flash.error="user not subscribed to this topic";
                     }
+                case Visibility.PUBLIC:
+                    //render("Success");
+                    List<User> subscribedUsers=requestedTopic.getSubscribedUsers()
+                    List<Resource> posts=requestedTopic.resources.asList()
+                    [topic:requestedTopic,subscribedUsers:subscribedUsers,posts:posts]
                     break;
                 default:
                     flash.error="com.tothenew.linkshare.topic object is corrupt";
             }
         }
         else {
-            //redirect(controller: "Login" , action: "index");
             flash.error="com.tothenew.linkshare.topic not found";
+            redirect(controller: "Login" , action: "index");
         }
-        render flash.error
+        //render flash.error
     }
     def save(Topic topic, String seriousness){
         try{

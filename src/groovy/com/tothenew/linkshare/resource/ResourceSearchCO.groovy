@@ -6,7 +6,7 @@ import com.tothenew.linkshare.topic.Visibility
 /**
  * Created by ttnd on 23/2/16.
  */
-class ResourceSearchCo extends SearchCO {
+class ResourceSearchCO extends SearchCO {
     long topicId;
     Visibility visibility;
     @Override

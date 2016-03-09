@@ -1,12 +1,14 @@
 package com.tothenew.linkshare.Login
 
 import com.tothenew.linkshare.resource.Resource
+import com.tothenew.linkshare.resource.ResourceVO
 import com.tothenew.linkshare.user.User
 import grails.validation.ValidationException
 
 class LoginController {
     //static scope="prototype"
     def messageSource
+    def mailService
     def index(int offset, int max) {
 //        def message = messageSource.getMessage("login.index.array.out.of.bounds", null, Locale.FRENCH)
 //
@@ -22,8 +24,8 @@ class LoginController {
             redirect(controller: "user",action: "index");
         }
         else {
-            List<Resource> topResources = Resource.getTopPosts(lOffset,lMax);
-            [topPosts:topResources, count:topResources.size(),recentPosts:Resource.getRecentPosts()]
+            List<ResourceVO> topPosts = Resource.getTopPosts(lOffset,lMax);
+            [topPosts:topPosts, count:topPosts.size(),recentPosts:Resource.getRecentPosts()]
         }
     }
     def loginHandler(String username,String password){

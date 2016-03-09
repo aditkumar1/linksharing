@@ -1,7 +1,5 @@
 <html>
-	
-	<body>
-
+    <body>
     <div class="row">
 		<div class="container-fluid col-xs-12 pull-left">
 		<div class="panel panel-default">
@@ -18,12 +16,12 @@
                         </div>
                         <div class="col-sm-9">
                             <div class="row">
-                                <span class="col-sm-4"><a href="#"><%= posts.createdBy.name %></a></span><span class="col-sm-4 text-muted">@<%= posts.createdBy.username %> 5min</span><span class="col-sm-2" style="color:blue"><a href="#">Grails</a></span>
+                                <span class="col-sm-4"><a href="#"><%= posts.createdBy.name %></a></span><span class="col-sm-4 text-muted">@<%= posts.createdBy.username %> 5min</span>
                             </div>
                             <div class="row">
-                                <h4><%= posts.name %></h4>
+                                <h4><%= posts.topicName %></h4>
                                 <p>
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
+                                    <%= posts.description %>
                                 </p>
                             </div>
                             <div class="row">

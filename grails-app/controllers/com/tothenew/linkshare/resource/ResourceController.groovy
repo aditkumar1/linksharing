@@ -3,6 +3,7 @@ package com.tothenew.linkshare.resource
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.topic.Visibility
+import com.tothenew.linkshare.user.User
 
 class ResourceController {
 
@@ -17,7 +18,7 @@ class ResourceController {
         }
 
     }
-    def search(ResourceSearchCo resourceSearchCo){
+    def search(ResourceSearchCO resourceSearchCo){
         if(resourceSearchCo.q){
             resourceSearchCo.visibility=Visibility.PUBLIC
             render Resource.search(resourceSearchCo).list()
@@ -26,15 +27,17 @@ class ResourceController {
             render "Q parameter not set"
         }
     }
-    def show(){
-        List<TopicVO> topicVos=Topic.trendingTopics
-        List<RatingInfoVo> ratingInfoVos=Resource.getRatingInfo()
+    def show(int id){
+        Resource resource=Resource.get(id)
+        User user=User.get(session.user.id)
+        List<TopicVO> trendingTopics= Topic.getTrendingTopics()
+        //RatingInfoVO ratingInfoVo=resource.getRatingInfo()
         if(resource){
-            RatingInfoVo ratingInfoVo=resource.ratingInfo
-            render ratingInfoVo
+            RatingInfoVO ratingInfoVO=resource.getRatingInfo()
+            [user:user,resource:resource,ratingInfoVO:ratingInfoVO,trendingTopics:trendingTopics]
         }
         else{
-            render "resource not found"
+                flash.error= "resource not found"
         }
     }
 

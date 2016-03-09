@@ -1,6 +1,7 @@
 package com.tothenew.linkshare.resource
 
 import com.tothenew.linkshare.topic.Topic
+import com.tothenew.linkshare.topic.Visibility
 import com.tothenew.linkshare.user.User
 
 abstract class Resource {
@@ -25,9 +26,9 @@ abstract class Resource {
         topic blank:false, nullable:false
     }
 
-   public static List<RatingInfoVo> getRatingInfo(){
-       List<RatingInfoVo> resourceRatings=new ArrayList<RatingInfoVo>()
-       List ratingResults=Resource.createCriteria().get {
+   public RatingInfoVO getRatingInfo(){
+
+       List ratingResult=Resource.createCriteria().get {
            resourceRatings{
                projections{
                    count('score')
@@ -35,39 +36,50 @@ abstract class Resource {
                    sum('score')
                }
            }
-           groupProperty('id')
+           eq('id',this.id)
 
        }
-       ratingResults.each {
-           resourceRatings.add(new RatingInfoVo(totalVotes:it[0],averageScore:it[1],totalScore:it[2]))
-       }
-       return resourceRatings
+       return new RatingInfoVO(totalVotes:ratingResult[0],averageScore:ratingResult[1],totalScore:ratingResult[2])
+
     }
-    static List getTopPosts(int lOffset,int lMax) {
-        List resourceIdWithMaximumRatings = Resource.createCriteria().list {
-
+    public static List<ResourceVO> getTopPosts(int offset,int max){
+        List topPosts=Topic.createCriteria().list(){
             projections{
-                resourceRatings {
-                    count('id','rCount')
+                resources{
+                    resourceRatings{
+                        avg('score','average')
+                    }
+                    groupProperty('id')
                 }
             }
-            order('description')
-            groupProperty('id')
-            order('rCount')
-
-            maxResults(lMax)
-            firstResult(lOffset)
+            order('average','desc')
+            eq('visibility',Visibility.PUBLIC)
+            firstResult(offset)
+            maxResults(max)
         }.collect{
             it[1]
         }
-        return Resource.getAll(resourceIdWithMaximumRatings)
+        return parseResourceVO(Resource.getAll(topPosts))
     }
-    static getRecentPosts(){
-        return Topic.list(max:5,sort: "dateCreated",order:"desc")
+    static List<ResourceVO> parseResourceVO(List<Resource> resources){
+        List<ResourceVO> resourceVOs=new ArrayList<ResourceVO>() ;
+        resources.each {
+            if(it instanceof LinkResource) {
+                resourceVOs.add(new ResourceVO(id: it.id,topicId: it.topicId,topicName: it.topic.name,description: it.description,createdBy: it.createdBy,type:ResourceType.LINK_RESOURCE,url:((LinkResource)it).url))
+            }
+            else{
+                resourceVOs.add(new ResourceVO(id: it.id,topicId: it.topicId,topicName: it.topic.name,description: it.description,createdBy: it.createdBy,type:ResourceType.DOCUMENT_RESOURCE,filePath:((DocumentResource)it).filePath))
+            }
+        }
+        return resourceVOs
+    }
+
+    static List<ResourceVO> getRecentPosts(){
+        return parseResourceVO(Resource.list(max:5,sort: "dateCreated",order:"desc"))
     }
 
     static namedQueries = {
-        search { ResourceSearchCo co ->
+        search { ResourceSearchCO co ->
             if (co.topicId) {
                 eq('topic_id', co.topicId)
             }

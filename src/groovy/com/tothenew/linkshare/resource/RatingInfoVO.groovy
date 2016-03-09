@@ -3,7 +3,7 @@ package com.tothenew.linkshare.resource
 /**
  * Created by ttnd on 24/2/16.
  */
-class RatingInfoVo {
+class RatingInfoVO {
     long totalVotes,averageScore,totalScore
     @Override
     String toString() {

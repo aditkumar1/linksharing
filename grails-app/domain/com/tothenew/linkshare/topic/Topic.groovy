@@ -4,6 +4,7 @@ import com.tothenew.linkshare.resource.Resource
 import com.tothenew.linkshare.user.Seriousness
 import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
+import com.tothenew.linkshare.user.UserTopicDetailsVO
 import grails.validation.ValidationException
 
 class Topic {
@@ -42,6 +43,8 @@ class Topic {
     String toString(){
         return name
     }
+
+
     static List<TopicVO> getTrendingTopics(){
         List<TopicVO> topicVos= Topic.createCriteria().list(){
             projections{
