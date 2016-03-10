@@ -19,7 +19,7 @@
                     <div class="row">
                         <span class="col-sm-12 text-muted pull-right">
                             <g:form name="rateForm" controller="resourceRating" action="save" params="[id:resource.id]">
-                                <g:select from="[1,2,3,4,5]" name="score" value="${session.user.getScore(resource)}">
+                                <g:select from="[1,2,3,4,5]" name="score" value="${session.user?.getScore(resource)}">
                                 </g:select>
                                 <g:submitButton name="vote">Vote</g:submitButton>
                             </g:form>
@@ -42,7 +42,9 @@
                 <span class="col-sm-1 pull-left">
                     <i class="fa fa-google-plus"></i></span>
                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Delete</a></span>
-                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Edit </a></span>
+                <g:if test="${session.user}">
+                    <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Edit </a></span>
+                </g:if>
                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Download </a></span>
                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">view full site </a></span>
             </div>

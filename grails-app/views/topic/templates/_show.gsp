@@ -23,15 +23,17 @@
                 </div>
             </div>
         </div>
-        <div class="row form-group">
-            <div class="col-xs-8">
-                <span class="col-sm-4 pull-right">
-                    <g:select name="seriousness" from="${com.tothenew.linkshare.user.Seriousness.values()}" class="form-control"/>
-                </span>
+        <g:if test="${session.user}">
+            <div class="row form-group">
+                <div class="col-xs-8">
+                    <span class="col-sm-4 pull-right">
+                        <g:select name="seriousness" from="${com.tothenew.linkshare.user.Seriousness.values()}" class="form-control"/>
+                    </span>
+                </div>
+                <div class="col-xs-4">
+                    <span class="col-sm-1 pull-left glyphicon glyphicon-envelope" style="font-size:20px"></span>
+                </div>
             </div>
-            <div class="col-xs-4">
-                <span class="col-sm-1 pull-left glyphicon glyphicon-envelope" style="font-size:20px"></span>
-            </div>
-        </div>
+        </g:if>
 </div>
 </div>
