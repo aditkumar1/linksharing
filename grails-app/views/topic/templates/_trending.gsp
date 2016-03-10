@@ -9,7 +9,7 @@
                 <li class="list-group-item">
                     <div class="row" style="margin-bottom:5px">
                         <div class="col-sm-3">
-                            <asset:image class="img-thumbnail img-responsive pull-left" src="user.png" height="75px" width="75px" />
+                            <ls:userImage userId="${trendingTopic.createdBy?.id}"/>
                         </div>
                         <div class="col-sm-9">
                             <div class="row">
@@ -46,7 +46,7 @@
                 <li class="list-group-item">
                     <div class="row" style="margin-bottom:5px">
                         <div class="col-sm-3">
-                            <asset:image class="img-thumbnail img-responsive pull-left" src="user.png" height="75px" width="75px" />
+                            <ls:userImage userId="${trendingTopic.createdBy?.id}"/>
                         </div>
                         <div class="col-sm-9">
                             <div class="row">

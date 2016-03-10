@@ -95,5 +95,10 @@ class ApplicationTagLib {
             out<<g.link(controller: "user",action: "show",params: [id:user.id],count.toString())
         }
     }
+    def userImage={attr->
+        if(attr.userId){
+            out << "<img src='${createLink(controller: "user", action: "image", id: "${attr.userId}")}' width=64 height=64 >"
+        }
+    }
 
 }

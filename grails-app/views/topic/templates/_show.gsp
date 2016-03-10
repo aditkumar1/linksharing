@@ -5,7 +5,7 @@
 <div class="panel-body">
     <div class="row">
             <div class="col-sm-3">
-                <asset:image class="img-thumbnail img-responsive pull-left" src="user.png" height="75px" width="75px" />
+                <ls:userImage userId="${topic.createdBy?.id}"/>
             </div>
             <div class="col-sm-9">
                 <div class="row">

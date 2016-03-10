@@ -12,7 +12,7 @@
 
                     <div class="row">
                         <div class="col-sm-3">
-                            <asset:image class="img-thumbnail img-responsive" src="user.png" height="125px" width="100px" />
+                            <ls:userImage userId="${posts.createdBy.id}"/>
                         </div>
                         <div class="col-sm-9">
                             <div class="row">

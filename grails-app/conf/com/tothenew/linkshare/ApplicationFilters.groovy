@@ -10,7 +10,7 @@ class ApplicationFilters {
 //                }
 //            }
 //        }
-        sessionCheck(controller: 'login', invert:true){
+        sessionCheck(controller: 'login' , invert:true){
             before={
                 if(!session.user){
                     redirect(controller:"login",action:"index");
