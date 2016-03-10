@@ -4,6 +4,7 @@ import com.tothenew.linkshare.resource.LinkResource
 import com.tothenew.linkshare.resource.ReadingItem
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
+import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
 import com.tothenew.linkshare.resource.Resource
 
@@ -48,6 +49,50 @@ class ApplicationTagLib {
         }
         else{
 
+        }
+    }
+    def showSubscribe={attrs->
+        User user=session.user
+        if(user&&attrs.topicId){
+            if(user.isSubscribed(attrs.topicId)){
+                out<<g.link(controller: "subscription",action: "delete",id: attrs.topicId,"Unsubscribe")
+            }
+            else{
+                out<<g.link(controller: "subscription",action: "save",id: attrs.topicId,"Subscribe")
+            }
+        }
+    }
+    def susbcriptionCount={attrs->
+        int count=0
+        String output=""
+        if(attrs.topicId){
+            Topic topic=Topic.get(attrs.topicId)
+            count=topic?.getSubscriptionCount()
+            output=g.link(controller: "topic",action: "show",params: [id:attrs.topicId],count.toString())
+        }
+        if(attrs.user){
+            User user=attrs.user
+            count=user.getUserSubscriptionsCount()
+            output=g.link(controller: "user",action: "show",params: [id:attrs.topicId],count.toString())
+        }
+        out<<output
+    }
+    def resourceCount={attrs->
+        long topicId=0
+        int count=0
+        if(attrs.topicId){
+            topicId=attrs.topicId
+            Topic topic=Topic.get(topicId)
+            count=topic.getResourceCount()
+            out<<g.link(controller: "topic",action: "show",params: [id:attrs.topicId],count.toString())
+        }
+    }
+    def topicCount={attrs->
+        int count=0
+        if(attrs.user){
+            User user=attrs.user
+            count=user.getUserTopicsCount()
+            out<<g.link(controller: "user",action: "show",params: [id:user.id],count.toString())
         }
     }
 

@@ -17,9 +17,9 @@
                     <div class="col-sm-4 text-muted pull-right"><span>Topics</span></div>
                 </div>
                 <div class="row">
-                    <span class="col-sm-4"><a href="#">Unsubscribe</a></span>
-                    <span class="col-sm-4"><a href="#">10</a></span>
-                    <span class="col-sm-4"><a href="#">20</a></span>
+                    <span class="col-sm-4"><ls:showSubscribe topicId="${topic.id}"/> </span>
+                    <span class="col-sm-4"><ls:susbcriptionCount topicId="${topic.id}"/></span>
+                    <span class="col-sm-4"><ls:resourceCount topicId="${topic.id}"/> </span>
                 </div>
             </div>
         </div>

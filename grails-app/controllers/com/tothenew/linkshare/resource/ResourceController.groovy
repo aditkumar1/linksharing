@@ -4,7 +4,6 @@ import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.topic.Visibility
 import com.tothenew.linkshare.user.User
-import org.h2.engine.Session
 
 class ResourceController {
 
@@ -34,8 +33,8 @@ class ResourceController {
     }
     def show(int id){
         Resource resource=Resource.get(id)
-        User user=User.get(session.user.id)
-        if(resource&&user&&resource.canViewBy(user)){
+        User user=session.user
+        if(resource&&user&&resource.canViewedBy(user)){
         List<TopicVO> trendingTopics= Topic.getTrendingTopics()
         //RatingInfoVO ratingInfoVo=resource.getRatingInfo()
             RatingInfoVO ratingInfoVO=resource.getRatingInfo()

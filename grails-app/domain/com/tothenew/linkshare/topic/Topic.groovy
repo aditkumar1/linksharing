@@ -75,4 +75,20 @@ class Topic {
             it.subscribedBy
         }
     }
+    int getResourceCount(){
+        return Resource.createCriteria().get {
+            projections{
+                count('id')
+            }
+            eq('topic.id',this.id)
+        }
+    }
+    int getSubscriptionCount(){
+        Subscription.createCriteria().get{
+            projections{
+                count('id')
+            }
+            eq('topic.id',this.id)
+        }
+    }
 }

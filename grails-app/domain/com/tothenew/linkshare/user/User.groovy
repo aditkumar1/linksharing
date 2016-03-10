@@ -2,6 +2,7 @@ package com.tothenew.linkshare.user
 
 import com.tothenew.linkshare.resource.ReadingItem
 import com.tothenew.linkshare.resource.Resource
+import com.tothenew.linkshare.resource.ResourceRating
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
 
@@ -29,24 +30,20 @@ class User {
         }
     }
     int getUserTopicsCount() {
-        return User.createCriteria().get {
+        return Topic.createCriteria().get {
             projections {
-                topics {
                     count('id')
-                }
             }
-            eq('id', this.id.toLong())
+            eq('createdBy.id', this.id.toLong())
         } ?: 0
     }
     int getUserSubscriptionsCount(){
 
-        return User.createCriteria().get{
+        return Subscription.createCriteria().get{
             projections{
-                subscriptions{
-                    count('id')
-                }
+                count('id')
             }
-            eq('id',this.id.toLong())
+            eq('subscribedBy.id',this.id)
         }?:0
     }
     boolean canDeleteRsource(Resource resource){
@@ -59,12 +56,29 @@ class User {
         }
         return canDelete
     }
+    boolean isSubscribed(long topicId){
+        boolean subscription=false
+        List result=Subscription.createCriteria().list {
+            eq('subscribedBy.id',this.id)
+            eq('topic.id',topicId)
+        }
+        if(result.size()>0) subscription=true
+        return subscription
+    }
 
     String getConfirmPassword(){
         return confirmPassword;
     }
     void setConfirmPassword(String password){
         confirmPassword=password;
+    }
+    int getScore(Resource resource){
+        int score=0
+        ResourceRating resourceRating=ResourceRating.findByRatedByAndResource(this,resource)
+        if(resourceRating){
+            score=resourceRating.score
+        }
+        return score
     }
     static constraints = {
         email unique:true, email:true, nullable:false, blank :false;

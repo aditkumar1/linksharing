@@ -78,7 +78,7 @@ abstract class Resource {
     static List<ResourceVO> getRecentPosts(){
         return parseResourceVO(Resource.list(max:5,sort: "dateCreated",order:"desc"))
     }
-    boolean canViewBy(User user){
+    boolean canViewedBy(User user){
         return this.topic.canViewedBy(user)
     }
 

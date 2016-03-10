@@ -18,8 +18,8 @@
                     <span class="col-sm-6 text-muted pull-left">Topics</span>
                 </div>
                 <div class="row">
-                    <span class="col-sm-6 pull-left"><a href="#"><%= user.userSubscriptionsCount %></a></span>
-                    <span class="col-sm-6 pull-left"><a href="#"><%= user.userTopicsCount %></a></span>
+                    <span class="col-sm-6 pull-left"><ls:susbcriptionCount user="${user}"/> </span>
+                    <span class="col-sm-6 pull-left"><ls:topicCount user="${user}"/></span>
                 </div>
             </div>
         </div>

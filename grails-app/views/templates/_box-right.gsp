@@ -1,6 +1,4 @@
-<html>
-	
-	<body>
+
 
  <div class="container-fluid col-md-12 pull-right">
 		<div class="panel panel-default">
@@ -74,5 +72,3 @@
 			</div>
 		</div>
 		</div>
-	</body>
-</html>

@@ -44,7 +44,7 @@ class SubscriptionController {
     }
     def delete(int id) {
         try{
-            Subscription.load(id).delete()
+            Subscription.load(id).delete(flush: true)
             render("Success")
         }
         catch(Exception ex){

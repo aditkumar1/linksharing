@@ -17,17 +17,12 @@
                     </div>
 
                     <div class="row">
-                        <span class="rating pull-right" style="margin-right:10%">
-                            <i class="fa fa-heart"></i>
-
-                            <i class="fa fa-heart"></i>
-
-                            <i class="fa fa-heart"></i>
-
-                            <i class="fa fa-heart-o"></i>
-
-                            <i class="fa fa-heart-o"></i>
-
+                        <span class="col-sm-12 text-muted pull-right">
+                            <g:form name="rateForm" controller="resourceRating" action="save" params="[id:resource.id]">
+                                <g:select from="[1,2,3,4,5]" name="score" value="${session.user.getScore(resource)}">
+                                </g:select>
+                                <g:submitButton name="vote">Vote</g:submitButton>
+                            </g:form>
                         </span>
                     </div>
                     <div class="row">
