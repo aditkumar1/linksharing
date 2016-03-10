@@ -49,6 +49,16 @@ class User {
             eq('id',this.id.toLong())
         }?:0
     }
+    boolean canDeleteRsource(Resource resource){
+        Boolean canDelete=false;
+        if(this.admin||resource.createdBy==this){
+            canDelete=true
+        }
+        else{
+            canDelete=false
+        }
+        return canDelete
+    }
 
     String getConfirmPassword(){
         return confirmPassword;

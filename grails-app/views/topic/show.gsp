@@ -29,7 +29,7 @@
             <g:render template="/topic/templates/box-left" model="[topic:topic,subscribedUsers:subscribedUsers]"/>
         </div>
         <div id="box-right" class="col-xs-6">
-            <g:render template="/topic/templates/box-right" model="[topic:topic,posts:posts]"/>
+            <g:render template="/topic/templates/box-right" model="[topic:topic, posts:posts]"/>
         </div>
     </div>
 </div>

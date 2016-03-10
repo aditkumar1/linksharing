@@ -29,7 +29,7 @@
             <g:render template="/resource/templates/show" model="[resource:resource,ratingInfoVO:ratingInfoVO]"/>
         </div>
         <div id="box-right" class="col-xs-6">
-            <g:render template="/topic/templates/trending" model="[user:user,trendingTopics:trendingTopics]"/>
+            <ls:trendingTopics/>
         </div>
     </div>
 </div>

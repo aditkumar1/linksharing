@@ -43,7 +43,12 @@ class Topic {
     String toString(){
         return name
     }
-
+    boolean isPublic(){
+        return this.visibility==Visibility.PUBLIC
+    }
+    boolean canViewedBy(User user){
+        return (isPublic()||user.admin||Subscription.findBySubscribedByAndTopic(user,this))
+    }
 
     static List<TopicVO> getTrendingTopics(){
         List<TopicVO> topicVos= Topic.createCriteria().list(){

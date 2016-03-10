@@ -42,7 +42,7 @@ abstract class Resource {
        return new RatingInfoVO(totalVotes:ratingResult[0],averageScore:ratingResult[1],totalScore:ratingResult[2])
 
     }
-    public static List<ResourceVO> getTopPosts(int offset,int max){
+    public static List<Resource> getTopPosts(int offset,int max){
         List topPosts=Topic.createCriteria().list(){
             projections{
                 resources{
@@ -53,13 +53,14 @@ abstract class Resource {
                 }
             }
             order('average','desc')
+            order('dateCreated','desc')
             eq('visibility',Visibility.PUBLIC)
             firstResult(offset)
             maxResults(max)
         }.collect{
             it[1]
         }
-        return parseResourceVO(Resource.getAll(topPosts))
+        return Resource.getAll(topPosts)
     }
     static List<ResourceVO> parseResourceVO(List<Resource> resources){
         List<ResourceVO> resourceVOs=new ArrayList<ResourceVO>() ;
@@ -76,6 +77,13 @@ abstract class Resource {
 
     static List<ResourceVO> getRecentPosts(){
         return parseResourceVO(Resource.list(max:5,sort: "dateCreated",order:"desc"))
+    }
+    boolean canViewBy(User user){
+        return this.topic.canViewedBy(user)
+    }
+
+    boolean isLinkResource(){
+        return this.class==LinkResource
     }
 
     static namedQueries = {

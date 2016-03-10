@@ -54,4 +54,4 @@
 
    
  <!----------------------------------------------------------------Trending-------------------------------------------------->
-    <g:render template="/topic/templates/trending" model="[user:user,trendingTopics:trendingTopics,subscribedTopics:subscribedTopics]"/>
+    <ls:trendingTopics/>

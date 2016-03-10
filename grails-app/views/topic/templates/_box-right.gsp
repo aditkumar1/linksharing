@@ -49,9 +49,9 @@
                  <span class="col-sm-1 pull-left">
                    <i class="fa fa-google-plus"></i></span>
                  <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">view post</a></span>
-                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Mark As view </a></span>
-                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">view full site </a></span>
-                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Download </a></span>
+                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:markAsRead resource="${post}"/> </span>
+                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:displayResource resource="${post}"/> </span>
+
                </div>
 
          </div>

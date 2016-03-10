@@ -4,19 +4,24 @@ import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.topic.Visibility
 import com.tothenew.linkshare.user.User
+import org.h2.engine.Session
 
 class ResourceController {
 
     def delete(int id) {
+        User user= session.user
         try {
-            Resource.load(id).delete(flush:true)
-            render "resource Deleted "+id
+            Resource resource=Resource.load(id)
+            if(user.canDeleteRsource(resource)){
+                resource.delete(flush:true)
+                flash.message= "resource Deleted "+id
+                redirect(controller: "user",action: "index")
+            }
         }
         catch(Exception e){
             flash.error=e.toString()
-            render flash.error
+            redirect(controller: "user",action: "index")
         }
-
     }
     def search(ResourceSearchCO resourceSearchCo){
         if(resourceSearchCo.q){
@@ -30,14 +35,14 @@ class ResourceController {
     def show(int id){
         Resource resource=Resource.get(id)
         User user=User.get(session.user.id)
+        if(resource&&user&&resource.canViewBy(user)){
         List<TopicVO> trendingTopics= Topic.getTrendingTopics()
         //RatingInfoVO ratingInfoVo=resource.getRatingInfo()
-        if(resource){
             RatingInfoVO ratingInfoVO=resource.getRatingInfo()
             [user:user,resource:resource,ratingInfoVO:ratingInfoVO,trendingTopics:trendingTopics]
         }
         else{
-                flash.error= "resource not found"
+                flash.error= "resource not found or user not authorized"
         }
     }
 
