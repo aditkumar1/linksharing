@@ -9,57 +9,37 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal">
-
+                <g:form controller="linkResource" action="save" class="form-horizontal">
                     <div class="form-group">
-
-                        <label for="inputEmail" class="control-label col-xs-2">Link*</label>
-
+                        <label for="inputLink" class="control-label col-xs-2">Link*</label>
                         <div class="col-xs-10">
-
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
-
+                            <g:textField type="url" class="form-control" id="inputLink" name="url" placeholder="Link here"/>
                         </div>
-
                     </div>
 
                     <div class="form-group">
-
-                        <label for="inputEmail" class="control-label col-xs-2">Description*</label>
-
+                        <label for="inputDescription" class="control-label col-xs-2">Description*</label>
                         <div class="col-xs-10">
-
-                            <textarea class="form-control" placeholder="Description">
-                            </textarea>
+                            <g:textArea id="inputDescription" class="form-control" name="description" placeholder="Description">
+                            </g:textArea>
                         </div>
-
                     </div>
 
                     <div class="form-group">
-
                         <label for="linkTopicSelect" class="control-label col-xs-2">Topic*</label>
-
                         <div class="col-xs-10">
-
-                            <g:select class="form-control" id="linkTopicSelect" name="topicSelect" from="${subscribedTopics}"></g:select>
-
+                            <g:select class="form-control" id="linkTopicSelect" name="topicId" optionKey="id" from="${subscribedTopics}"></g:select>
                         </div>
-
                     </div>
 
 
                     <div class="form-group">
-
                         <div class="col-xs-offset-2 col-xs-10">
-
-                            <button type="submit" class="btn btn-primary">Share</button>
-                            <button type="submit" class="btn btn-primary">Cancel</button>
-
+                            <g:submitButton name="share" type="submit" class="btn btn-primary">Share</g:submitButton>
+                            <button  class="btn btn-default" data-dismiss="modal">Cancel</button>
                         </div>
-
                     </div>
-
-                </form>
+                </g:form>
             </div>
 
         </div>

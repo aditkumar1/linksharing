@@ -5,7 +5,7 @@
         </h3>
     </div>
     <div class = "panel-body">
-        <g:form name="login" controller="login" action="register" class="form-horizontal">
+        <g:form name="login" controller="user" action="register" class="form-horizontal">
             <div class="form-group">
                 <label for="inputFName" class="control-label col-xs-3">Name*</label>
                 <div class="col-xs-9">

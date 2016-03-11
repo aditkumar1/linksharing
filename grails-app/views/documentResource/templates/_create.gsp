@@ -9,34 +9,27 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal">
+                <g:uploadForm controller="documentResource" action="save" class="form-horizontal">
+
 
                     <div class="form-group">
 
-                        <label for="inputEmail" class="control-label col-xs-2">Document*</label>
+                        <label for="file" class="control-label col-xs-2">Document*</label>
 
-                        <div class="col-xs-5">
-
-                            <input type="email" class="form-control" id="inputEmail">
-
-                        </div>
-
-                        <div class="col-xs-5">
-
-                            <button class="form-control" style="background-color:#D3D3D3">Browse</button>
-
+                        <div class="col-xs-10">
+                            <input type="file" id="file" name="file" style="background-color:#D3D3D3"/>
                         </div>
 
                     </div>
 
                     <div class="form-group">
 
-                        <label for="inputEmail" class="control-label col-xs-2">Description*</label>
+                        <label for="inputDescription" class="control-label col-xs-2">Description*</label>
 
                         <div class="col-xs-10">
 
-                            <textarea class="form-control" placeholder="Description">
-                            </textarea>
+                            <g:textArea name="description" class="form-control" id="inputDescription" placeholder="description">
+                            </g:textArea>
                         </div>
 
                     </div>
@@ -47,7 +40,7 @@
 
                         <div class="col-xs-10">
 
-                            <g:select class="form-control" id="documentTopicSelect" name="topicSelect" from="${subscribedTopics}"></g:select>
+                            <g:select class="form-control" id="documentTopicSelect" name="topicId" optionKey="id" from="${subscribedTopics}"></g:select>
 
                         </div>
 
@@ -58,14 +51,14 @@
 
                         <div class="col-xs-offset-2 col-xs-10">
 
-                            <button type="submit" class="btn btn-primary">Share</button>
-                            <button type="submit" class="btn btn-primary">Cancel</button>
+                            <g:submitButton name="documentSubmit" type="submit" class="btn btn-primary">Share</g:submitButton>
+                            <button  class="btn btn-default" data-dismiss="modal">Cancel</button>
 
                         </div>
 
                     </div>
 
-                </form>
+                </g:uploadForm>
             </div>
 
         </div>

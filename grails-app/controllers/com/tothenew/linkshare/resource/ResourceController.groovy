@@ -3,10 +3,27 @@ package com.tothenew.linkshare.resource
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.topic.Visibility
+import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
+import com.tothenew.linkshare.resource.Resource
+import grails.validation.ValidationException
 
 class ResourceController {
-
+    def grailsApplication
+    protected void addToReadingItems(Resource resource){
+        try {
+                Subscription.findAllByTopic(resource.topic).each{
+                    new ReadingItem(user: it.subscribedBy,resource: resource,isRead: false).save(failOnError: true)
+            }
+        }
+        catch (ValidationException vx){
+            flash.error=vx.toString()
+        }
+        catch(Exception ex){
+            flash.error=ex.toString()
+            throw ex
+        }
+    }
     def delete(int id) {
         User user= session.user
         try {
@@ -44,6 +61,4 @@ class ResourceController {
                 flash.error= "resource not found or user not authorized"
         }
     }
-
-
 }

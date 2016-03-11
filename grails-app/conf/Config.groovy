@@ -137,3 +137,5 @@ log4j.main = {
 }
 
 grails.plugin.console.enabled = true
+
+linksharing.documents.folderPath ="/var/www/linksharing/"

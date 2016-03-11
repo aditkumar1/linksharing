@@ -1,12 +1,17 @@
 package com.tothenew.linkshare.resource
 
+import com.tothenew.linkshare.topic.Topic
+import com.tothenew.linkshare.user.User
 import grails.validation.ValidationException
 
-class LinkResourceController {
-
-    def save(LinkResource linkResource) {
+class LinkResourceController extends ResourceController {
+    def save() {
         try{
+            User user=session?.user
+            Topic topic=Topic.load(params.topicId)
+            LinkResource linkResource=new LinkResource(url:params.url,description: params.description,topic: topic,createdBy: user)
             linkResource.save(failOnError: true)
+            addToReadingItems(linkResource)
             flash.message="link resource has been saved"
         }
         catch(ValidationException ve){
@@ -17,5 +22,6 @@ class LinkResourceController {
             flash.error=ex.toString()
             redirect(controller: "user",action: "index")
         }
+
     }
 }

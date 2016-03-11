@@ -2,6 +2,7 @@ package com.tothenew.linkshare.resource
 
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.Visibility
+import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
 
 abstract class Resource {
@@ -26,6 +27,7 @@ abstract class Resource {
         topic blank:false, nullable:false
     }
 
+
    public RatingInfoVO getRatingInfo(){
 
        List ratingResult=Resource.createCriteria().get {
@@ -40,7 +42,6 @@ abstract class Resource {
 
        }
        return new RatingInfoVO(totalVotes:ratingResult[0],averageScore:ratingResult[1],totalScore:ratingResult[2])
-
     }
     public static List<Resource> getTopPosts(int offset,int max){
         List topPosts=Topic.createCriteria().list(){
@@ -84,6 +85,9 @@ abstract class Resource {
 
     boolean isLinkResource(){
         return this.class==LinkResource
+    }
+    public void deleteFile(){
+        log.debug("Resource deleted ${this.id}")
     }
 
     static namedQueries = {

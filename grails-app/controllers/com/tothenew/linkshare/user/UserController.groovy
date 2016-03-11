@@ -3,6 +3,7 @@ package com.tothenew.linkshare.user
 
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
+import grails.validation.ValidationException
 import org.apache.catalina.connector.Response
 
 
@@ -31,5 +32,20 @@ class UserController {
         out.write(photo)
         out.flush()
         out.close()
+    }
+    def register(){
+        println params.confirmPassword
+        User newUser=new User(email: params.email,username: params.username,password: params.password,confirmPassword: params.confirmPassword,firstName: params.firstName,lastName: params.lastName,admin: params.admin,active: params.active);
+        try {
+            newUser.save(flush: true, failOnError: true);
+            session.user=newUser
+            flash.message= "Success"
+        }
+        catch(ValidationException ve) {
+            flash.error=(ve.toString());
+        }
+        finally {
+            redirect(controller: "login",action: "index")
+        }
     }
 }
