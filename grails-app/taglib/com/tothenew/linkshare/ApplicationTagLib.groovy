@@ -17,10 +17,10 @@ class ApplicationTagLib {
         Resource resource=attrs?.resource
         ReadingItem readingItem=ReadingItem.findByUserAndResource(user,resource)
         if(readingItem&&readingItem.isRead){
-             out<<g.link(controller: 'readingItem',action: 'changeIsRead',params: [id:resource.id,isRead:false],"Mark as unread")
+            out<<"<a href='javascript:void(0)' class='markasread' id='markasread-${resource.id}' data-url=${createLink(controller: 'readingItem',action: 'changeIsRead',params: [id:resource.id,isRead:false] )}>Mark as unread</a>"
         }
         else{
-             out<<g.link(controller: 'readingItem',action: 'changeIsRead',params: [id:resource.id,isRead:true],"Mark as read")
+            out<<"<a href='javascript:void(0)' class='markasread' id='markasread-${resource.id}' data-url=${createLink(controller: 'readingItem',action: 'changeIsRead',params: [id:resource.id,isRead:true])}>Mark as read</a>"
         }
     }
     def trendingTopics={
@@ -44,7 +44,7 @@ class ApplicationTagLib {
     def canDeleteResource={attr->
         User user=session.user
         Resource resource=attr?.resource
-        if(user.canDeleteRsource(resource)){
+        if(user.canDeleteRsourceOrTopic(resource)){
 
         }
         else{
@@ -99,6 +99,27 @@ class ApplicationTagLib {
     def userImage={attr->
         if(attr.userId){
             out << "<img src='${createLink(controller: "user", action: "image", id: "${attr.userId}")}' width=64 height=64 >"
+        }
+    }
+    def canUpdateTopic={attr->
+        User user=session.user
+        def topic=attr?.topic
+        Subscription subscription=user.getSubscription(topic?.id)
+        if(subscription){
+            if(topic.createdBy.equals(user)){
+                out<<g.render(template: "/topic/templates/menuPanelForTopicCreator",model: [topic:topic])
+            }
+            else {
+                out<<g.render(template: "/topic/templates/menuPanelForTopicSubscriber",model: [topic:topic])
+            }
+        }
+    }
+    def showSeriousness={attr->
+        User user=session.user
+        def topic=attr?.topic
+        Subscription subscription=user.getSubscription(topic?.id)
+        if(subscription){
+            out<<g.render(template: "/topic/templates/subscription",model: [subscription:subscription])
         }
     }
 

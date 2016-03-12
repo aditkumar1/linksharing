@@ -4,6 +4,7 @@ import com.tothenew.linkshare.resource.Resource
 import com.tothenew.linkshare.resource.ResourceSearchCO
 import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
+import grails.validation.ValidationException
 
 class TopicController {
 
@@ -35,17 +36,56 @@ class TopicController {
         }
         //render flash.error
     }
-    def save(Topic topic, String seriousness){
+    def update(int id,String visibility) {
+        Map jsonObject = [:]
+        Topic topic=Topic.get(id)
+        if(topic){
+            try{
+                topic.visibility=visibility as Visibility
+                topic.save(failOnError: true)
+                jsonObject.message= "topic successfully saved"
+            }
+            catch(ValidationException ve){
+                jsonObject.error= ve.toString()
+            } catch (Exception e) {
+                jsonObject.error= e.toString()
+            }
+        }
+        else{
+            jsonObject.error="Topic not found"
+        }
+        render jsonObject
+    }
+    def save(String name,String visibility){
+        Map jsonObject = [:]
+        Topic topic=new Topic(name:name,createdBy:session.user ,visibility: visibility as Visibility)
         try{
-            topic.createdBy=session.user
             topic.save(failOnError: true)
-            flash.error="Requested com.tothenew.linkshare.topic is saved"
+            jsonObject.message="Requested topic is saved"
         }
         catch(Exception ex){
-            flash.error="Exception caught :${ex.toString()}"
+            jsonObject.error="Exception caught :${ex.toString()}"
         }
         finally {
-            render flash.error
+            render jsonObject
         }
+    }
+    def delete(long id) {
+        User user=session.user
+        Map jsonObject = [:]
+        try{
+            Topic topic=Topic.load(id)
+            if(user.canDeleteRsourceOrTopic(topic)){
+                topic.delete(flush: true)
+                jsonObject.message="Success"
+            }
+            else{
+                jsonObject.error= "User can not delete this topic"
+            }
+        }
+        catch(Exception ex){
+            jsonObject.error= "Not Found"
+        }
+        render jsonObject
     }
 }

@@ -46,9 +46,9 @@ class User {
             eq('subscribedBy.id',this.id)
         }?:0
     }
-    boolean canDeleteRsource(Resource resource){
+    boolean canDeleteRsourceOrTopic(def resourceOrTopic){
         Boolean canDelete=false;
-        if(this.admin||resource.createdBy==this){
+        if(this.admin||resourceOrTopic.createdBy.equals(this)){
             canDelete=true
         }
         else{
@@ -57,13 +57,10 @@ class User {
         return canDelete
     }
     boolean isSubscribed(long topicId){
-        boolean subscription=false
-        List result=Subscription.createCriteria().list {
-            eq('subscribedBy.id',this.id)
-            eq('topic.id',topicId)
-        }
-        if(result.size()>0) subscription=true
-        return subscription
+        boolean isSubscribed=false
+        Subscription subscription=getSubscription(topicId)
+        if(subscription) isSubscribed=true
+        return isSubscribed
     }
 
     String getConfirmPassword(){
@@ -79,6 +76,12 @@ class User {
             score=resourceRating.score
         }
         return score
+    }
+    Subscription getSubscription(long topicId){
+        return Subscription.createCriteria().get {
+            eq('subscribedBy.id',this.id)
+            eq('topic.id',topicId)
+        }
     }
     static constraints = {
         email unique:true, email:true, nullable:false, blank :false;
@@ -97,7 +100,14 @@ class User {
         photo(sqlType: 'longblob')
         sort(id: "desc")
     }
-    
+    boolean equals(User user){
+        return this.id==user.id
+    }
+
+    @Override
+    boolean equals(Object obj) {
+        return super.equals(obj)
+    }
 //    String toString(){
 //        return username;
 //    }

@@ -28,32 +28,40 @@ class SubscriptionController {
     def update(int id,String seriousness) {
         Map jsonObject = [:]
         Subscription subscription=Subscription.get(id)
-        if(subscription&&subscription.seriousness.toString()==seriousness){
+        if(subscription){
             try{
+                subscription.seriousness=seriousness as Seriousness
                 subscription.save(failOnError: true)
                  jsonObject.message= "success : ${subscription.seriousness}"
             }
             catch(ValidationException ve){
-                render ve.toString()
+                jsonObject.error= ve.toString()
             } catch (Exception e) {
-                render e.toString()
+                jsonObject.error= e.toString()
             }
         }
         else{
             jsonObject.error="Subscription not found"
         }
-
+        render jsonObject
     }
-    def delete(int id) {
+    def delete(long id) {
+        User user=session.user
+        Topic topic=Topic.get(id)
         Map jsonObject = [:]
         try{
-            Subscription.load(id).delete(flush: true)
-            jsonObject.message="Success"
+            Subscription subscription=user.getSubscription(id)
+            if(!topic?.createdBy.equals(user)){
+                subscription.delete(flush: true)
+                jsonObject.message="Success"
+            }
+            else{
+                jsonObject.error= "Creator of topic cant unsubscribe"
+            }
         }
         catch(Exception ex){
             jsonObject.error= "Not Found"
         }
         render jsonObject
-
     }
 }

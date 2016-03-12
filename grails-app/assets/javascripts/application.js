@@ -8,12 +8,13 @@
 //= require jquery
 //= require_tree .
 //= require_self
-function makeAjaxcall(url,element){
-	element.prepend($("#ajaxSpinnerImage"));
+function makeAjaxcall(url,data,element){
+	element.parent().prepend($("#ajaxSpinnerImage"));
 	$.ajax({
 		url:url,
-		success: function (data) {
-			console.log(data);
+		data:data,
+		success: function (response) {
+			console.log(response);
 		}
 	});
 }
@@ -23,12 +24,40 @@ $(document)
 	})
 	.ajaxStop(function(){
 		$("#ajaxSpinnerImage").hide();
-		location.reload();
+		//location.reload();
 	});
 $(document).on('click', ".subscription", function () {
 	console.log($(this).attr('data-url'));
 	url=$(this).attr('data-url')
-	makeAjaxcall(url,$(this))
+	makeAjaxcall(url,null,$(this))
+});
+$(document).on('change', ".seriousness", function () {
+	console.log($(this).attr('data-url'));
+	id=$(this).attr('data-id')
+	console.log(id);
+	url=$(this).attr('data-url')
+	data="id="+id+"&seriousness="+$(this).val()
+	console.log(data)
+	makeAjaxcall(url,data,$(this))
+});
+$(document).on('change', ".visibility", function () {
+	console.log($(this).attr('data-url'));
+	id=$(this).attr('data-id')
+	console.log(id);
+	url=$(this).attr('data-url')
+	data="id="+id+"&visibility="+$(this).val()
+	console.log(data)
+	makeAjaxcall(url,data,$(this))
+});
+$(document).on('click', ".topicDelete", function () {
+	console.log($(this).attr('data-url'));
+	url=$(this).attr('data-url')
+	makeAjaxcall(url,null,$(this))
+});
+$(document).on('click', ".markasread", function () {
+	console.log($(this).attr('data-url'));
+	url=$(this).attr('data-url')
+	makeAjaxcall(url,null,$(this))
 });
 $( document ).ready(function() {
 

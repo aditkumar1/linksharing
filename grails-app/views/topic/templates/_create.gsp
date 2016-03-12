@@ -9,15 +9,15 @@
             </div>
 
             <div class="modal-body">
-                <form class="form-horizontal">
+                <g:form controller="topic" action="save" class="form-horizontal">
 
                     <div class="form-group">
 
-                        <label for="inputEmail" class="control-label col-xs-2">Name*</label>
+                        <label for="inputName" class="control-label col-xs-2">Name*</label>
 
                         <div class="col-xs-10">
 
-                            <input type="email" class="form-control" id="inputEmail" placeholder="Email">
+                            <input type="text" class="form-control" name="name" id="inputName" placeholder="topic name here">
 
                         </div>
 
@@ -29,7 +29,7 @@
 
                         <div class="col-xs-10">
 
-                            <g:select class="form-control " id="visibility" name="visibility" from="${com.tothenew.linkshare.topic.Visibility.values()}">
+                            <g:select class="form-control"  id="visibility" name="visibility" from="${com.tothenew.linkshare.topic.Visibility.values()}">
                             </g:select>
 
                         </div>
@@ -41,14 +41,14 @@
 
                         <div class="col-xs-offset-2 col-xs-10">
 
-                            <button type="submit" class="btn btn-primary">Save</button>
-                            <button type="submit" class="btn btn-primary">Cancel</button>
+                            <g:submitButton name="submit" type="submit" class="btn btn-primary">Save</g:submitButton>
+                            <button class="btn btn-default" data-dismiss="modal">Cancel</button>
 
                         </div>
 
                     </div>
 
-                </form>
+                </g:form>
             </div>
 
         </div>

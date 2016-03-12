@@ -5,7 +5,6 @@ import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.topic.Visibility
 import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
-import com.tothenew.linkshare.resource.Resource
 import grails.validation.ValidationException
 
 class ResourceController {
@@ -28,7 +27,7 @@ class ResourceController {
         User user= session.user
         try {
             Resource resource=Resource.load(id)
-            if(user.canDeleteRsource(resource)){
+            if(user.canDeleteRsourceOrTopic(resource)){
                 resource.delete(flush:true)
                 flash.message= "resource Deleted "+id
                 redirect(controller: "user",action: "index")
