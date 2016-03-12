@@ -1,19 +1,21 @@
 package com.tothenew.linkshare.resource
 
 import com.tothenew.linkshare.user.User
+import grails.converters.JSON
 import org.codehaus.groovy.grails.web.json.JSONObject
 
 class ReadingItemController {
     def changeIsRead(long id,boolean isRead) {
-        JSONObject jsonObject = new JSONObject()
+        Map jsonObject = [:]
         User user=session.user
         String query="Update ReadingItem ri set isRead=${isRead} where ri.resource.id=${id} and user.id=${user.id}"
         if(User.executeUpdate(query)){
-            jsonObject.put("message","Status changed successfully")
+            jsonObject.message = "Status changed successfully"
         }
         else{
-            jsonObject.put("error","Error while updating status")
+            jsonObject.error  ="Error while updating status"
         }
-        render jsonObject.toString()
+
+        render jsonObject as JSON
     }
 }

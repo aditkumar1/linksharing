@@ -8,13 +8,29 @@
 //= require jquery
 //= require_tree .
 //= require_self
-
-if (typeof jQuery !== 'undefined') {
-	(function($) {
-		$(document).ajaxStart(function(){
-			$('#spinner').fadeIn();
-		}).ajaxStop(function(){
-			$('#spinner').fadeOut();
-		});
-	})(jQuery);
+function makeAjaxcall(url,element){
+	element.prepend($("#ajaxSpinnerImage"));
+	$.ajax({
+		url:url,
+		success: function (data) {
+			console.log(data);
+		}
+	});
 }
+$(document)
+	.ajaxStart(function(){
+		$("#ajaxSpinnerImage").show();
+	})
+	.ajaxStop(function(){
+		$("#ajaxSpinnerImage").hide();
+		location.reload();
+	});
+$(document).on('click', ".subscription", function () {
+	console.log($(this).attr('data-url'));
+	url=$(this).attr('data-url')
+	makeAjaxcall(url,$(this))
+});
+$( document ).ready(function() {
+
+});
+

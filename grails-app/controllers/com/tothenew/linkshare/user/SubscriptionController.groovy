@@ -6,29 +6,32 @@ import grails.validation.ValidationException
 class SubscriptionController {
 
     def save(int id) {
+        Map jsonObject = [:]
         Topic topic=Topic.get(id)
         if(topic){
             Subscription subscription=new Subscription(subscribedBy: session.user, topic: topic)
             try{
                 subscription.save(failOnError: true)
-                render "success ${subscription.seriousness}"
+                jsonObject.message= "success ${subscription.seriousness}"
             }
             catch(ValidationException ve){
-                render ve.toString()
+                jsonObject.error= ve.toString()
             } catch (Exception e) {
-                render e.toString()
+                jsonObject.error =e.toString()
             }
         }
         else{
-            render "com.tothenew.linkshare.topic not found"
+            jsonObject.error= "com.tothenew.linkshare.topic not found"
         }
+        render jsonObject
     }
     def update(int id,String seriousness) {
+        Map jsonObject = [:]
         Subscription subscription=Subscription.get(id)
         if(subscription&&subscription.seriousness.toString()==seriousness){
             try{
                 subscription.save(failOnError: true)
-                render "success ${subscription.seriousness}"
+                 jsonObject.message= "success : ${subscription.seriousness}"
             }
             catch(ValidationException ve){
                 render ve.toString()
@@ -37,19 +40,20 @@ class SubscriptionController {
             }
         }
         else{
-            flash.error="Subscription not found"
-            render flash.error
+            jsonObject.error="Subscription not found"
         }
 
     }
     def delete(int id) {
+        Map jsonObject = [:]
         try{
             Subscription.load(id).delete(flush: true)
-            render("Success")
+            jsonObject.message="Success"
         }
         catch(Exception ex){
-            render "Not Found"
+            jsonObject.error= "Not Found"
         }
+        render jsonObject
 
     }
 }

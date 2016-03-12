@@ -1,3 +1,5 @@
+#ajaxSpinnerContainer {height:20px;}
+#ajaxSpinnerImage {display:none;}
 .hideOverflow { overflow:hidden; white-space:nowrap; text-overflow:ellipsis; width:100%; display:block; }
 .panel , .navbar
 {

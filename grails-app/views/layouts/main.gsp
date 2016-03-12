@@ -19,12 +19,13 @@
 
 
     <asset:stylesheet src="main.css"/>
-
-
     <g:layoutHead/>
 </head>
 
 <body>
 <g:layoutBody/>
+<div id="ajaxSpinnerContainer">
+    <asset:image src="spinner.gif" id="ajaxSpinnerImage" title="working..."/>
+</div>
 </body>
 </html>

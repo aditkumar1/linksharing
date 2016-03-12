@@ -52,13 +52,14 @@ class ApplicationTagLib {
         }
     }
     def showSubscribe={attrs->
+        String output=""
         User user=session.user
         if(user&&attrs.topicId){
             if(user.isSubscribed(attrs.topicId)){
-                out<<g.link(controller: "subscription",action: "delete",id: attrs.topicId,"Unsubscribe")
+                out<<"<a href='javascript:void(0)' class='subscription' id='subscription-${attrs.topicId}' data-url=${createLink(controller: "subscription",action: "delete",id: attrs.topicId)}>Unsubscribe</a>"
             }
             else{
-                out<<g.link(controller: "subscription",action: "save",id: attrs.topicId,"Subscribe")
+                out<<"<a href='javascript:void(0)' class='subscription' id='subscription-${attrs.topicId}' data-url=${createLink(controller: "subscription",action: "save",id: attrs.topicId)}>Subscribe</a>"
             }
         }
     }
