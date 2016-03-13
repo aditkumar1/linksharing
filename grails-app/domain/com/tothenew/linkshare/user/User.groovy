@@ -20,11 +20,22 @@ class User {
     Date lastUpdated;
 
     static transients = ['name','confirmPassword','subscribedTopics','userSubscriptionsCount','userTopicsCount'];
+    void changeActivateStatus() throws Exception{
+        this.confirmPassword=this.password
+        try{
+            this.save(failOnError: true,flush: true)
+        }
+        catch (Exception ex)
+        {
+            throw ex
+        }
+    }
+
     String getName() {
         return "${firstName} ${lastName}";
     }
-    List<TopicVO> getSubscribedTopics(offset,maxResults){
-        return Subscription.findAllBySubscribedBy(this,[max:maxResults,offset:offset]).collect{ subscription ->
+    List<TopicVO> getSubscribedTopics(int offset,int max){
+        return Subscription.findAllBySubscribedBy(this,[max:max,offset:offset]).collect{ subscription ->
             Topic topic = subscription.topic
             new TopicVO(id: topic.id, count: topic.resources.size(), name: topic.name, createdBy: topic.createdBy, visibility: topic.visibility)
         }
@@ -107,6 +118,30 @@ class User {
     @Override
     boolean equals(Object obj) {
         return super.equals(obj)
+    }
+    static namedQueries = {
+        search {
+            UserSearchCO userSearchCO ->
+
+                if (userSearchCO.q) {
+
+                    or
+                            {
+                                ilike('firstName', "%${userSearchCO.q}%")
+                                ilike('lastName', "%${userSearchCO.q}%")
+                                ilike('email', "%${userSearchCO.q}%")
+                                ilike('username', "%${userSearchCO.q}%")
+
+                            }
+                }
+
+                if (userSearchCO.isActive != null) {
+                    eq('active', userSearchCO.isActive)
+                }
+
+                eq('admin', false)
+        }
+
     }
 //    String toString(){
 //        return username;

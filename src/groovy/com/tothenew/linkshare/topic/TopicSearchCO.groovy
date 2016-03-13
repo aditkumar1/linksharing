@@ -1,13 +1,10 @@
-package com.tothenew.linkshare.resource
+package com.tothenew.linkshare.topic
 
 import com.tothenew.linkshare.search.SearchCO
-import com.tothenew.linkshare.topic.Visibility
 import com.tothenew.linkshare.user.User
 
-
-class ResourceSearchCO extends SearchCO{
+class TopicSearchCO extends SearchCO {
     Long id
-    Long topicId
     Visibility visibility
 
     public User getUser(){

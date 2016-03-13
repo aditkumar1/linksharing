@@ -1,0 +1,1 @@
+<g:render template="/resource/templates/top-posts" model="[topPosts:createdPosts,title:'Posts']"/>

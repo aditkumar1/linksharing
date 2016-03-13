@@ -30,7 +30,7 @@ class ApplicationTagLib {
     }
     def topPost={
         List<Resource> topPosts=Resource.getTopPosts(0,5)
-        out<<g.render(template: "/resource/templates/top-posts",model: [topPosts:topPosts])
+        out<<g.render(template: "/resource/templates/top-posts",model: [topPosts:topPosts,title:"Top Posts"])
     }
     def displayResource={attr->
         Resource resource=attr?.resource

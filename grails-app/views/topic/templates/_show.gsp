@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-sm-4 text-muted"><span>@<%= topic.createdBy.username %></span></div>
                     <div class="col-sm-4 text-muted"><span>Subscriptions</span></div>
-                    <div class="col-sm-4 text-muted pull-right"><span>Topics</span></div>
+                    <div class="col-sm-4 text-muted pull-right"><span>Posts</span></div>
                 </div>
                 <div class="row">
                     <span class="col-sm-4"><ls:showSubscribe topicId="${topic.id}"/> </span>

@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title row">
-                <div class="col-md-12">Top Posts</div>
+                <div class="col-md-12"><%= title %></div>
             </div>
             <div class="row">
                 <div class="col-md-12">

@@ -8,6 +8,6 @@ package com.tothenew.linkshare.search
  */
 class SearchCO {
     String q,order,sort;
-    Integer max,offset;
+    Integer max=5,offset=0;
 }
 
