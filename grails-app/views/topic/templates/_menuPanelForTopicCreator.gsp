@@ -9,7 +9,7 @@
     </div>
     <div class="col-xs-4">
         <span class="col-sm-1 pull-left glyphicon glyphicon-envelope" style="font-size:20px"></span>
-        <span class="col-sm-1 pull-left glyphicon glyphicon-pencil" style="font-size:20px"></span>
+        <a href='javascript:void(0)' class='topicEditIcon' data-id="${topic?.id}"><span class="col-sm-1 pull-left glyphicon glyphicon-pencil" style="font-size:20px"></span></a>
         <a href='javascript:void(0)' class='topicDelete' id='topic-delete-${topic?.id}' data-url=${createLink(controller: "topic",action: "delete",id: topic?.id)}><span class="col-sm-1 pull-left glyphicon glyphicon-trash" style="font-size:20px"></span></a>
     </div>
 </div>

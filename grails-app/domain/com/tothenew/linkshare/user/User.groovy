@@ -20,7 +20,7 @@ class User {
     Date lastUpdated;
 
     static transients = ['name','confirmPassword','subscribedTopics','userSubscriptionsCount','userTopicsCount'];
-    void changeActivateStatus() throws Exception{
+    void updateInstance() throws Exception{
         this.confirmPassword=this.password
         try{
             this.save(failOnError: true,flush: true)

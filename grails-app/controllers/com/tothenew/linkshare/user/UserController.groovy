@@ -2,19 +2,19 @@ package com.tothenew.linkshare.user
 
 import com.tothenew.linkshare.resource.Resource
 import com.tothenew.linkshare.resource.ResourceSearchCO
+import com.tothenew.linkshare.topic.EmailDTO
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicSearchCO
 import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.topic.Visibility
 import grails.validation.ValidationException
-import org.apache.catalina.connector.Response
-
 
 class UserController {
     def assetResourceLocator
     def topicService
     def subscriptionService
     def resourceService
+    def emailService
     def index() {
         User user=User.get(session.user.id)
         List<TopicVO> subscribedTopics =subscriptionService.search(new TopicSearchCO(id:user.id))
@@ -119,7 +119,7 @@ class UserController {
                     } else
                         user.active = !(user.active)
                     try{
-                        user.changeActivateStatus()
+                        user.updateInstance()
                         flash.message="active status has been changed"
                     }
                     catch(ValidationException ve){
@@ -134,39 +134,23 @@ class UserController {
         redirect(controller: "user", action: "list")
     }
 
-
-  /*  def forgotPassword(String emailID) {
-
-        User user = User.findByEmailID(emailID)
-
-        if (user) {
-            if (user.isActive) {
-                String to = emailID
-                String subject = "Forgot password request"
-                String newPassword = Util.randomPassword
-
-                EmailDTO emailDTO = new EmailDTO(to: to, subject: subject, model: [newPassword: newPassword])
-
-                user.password = newPassword
-
-                if (user.saveInstance()) {
-
-                    emailService.sendMail(emailDTO)
-                    flash.message = "Mail sent with new password."
-                } else {
-                    flash.error = "Mail could not be sent."
-                }
-            } else {
-                flash.error = "The user account corresponding to the entered email address is inactive."
+    def forgotPassword(String recoveryemail) {
+        User user = User.findByEmail(recoveryemail)
+        if (user && user.active) {
+            String newPassword = Util.getRandomPassword()
+            EmailDTO emailDTO = new EmailDTO(to: recoveryemail, subject: "Account Recovery", view: "/email/templates/_password", model: [userName: user.name, newPassword: newPassword, serverUrl: grailsApplication.config.grails.serverURL])
+            emailService.sendMail(emailDTO)
+            user.password = newPassword
+            try{
+                user.updateInstance()
+                flash.message = "Email successfully sent"
+            }
+            catch (Exception ex){
+                flash.error = ex.toString()
             }
         } else {
-            flash.error = "The email id doesn't belong to a registered user."
+            flash.error = "Email not for a valid user"
         }
-
         redirect(controller: "login", action: "index")
     }
-
-
-}
-*/
 }

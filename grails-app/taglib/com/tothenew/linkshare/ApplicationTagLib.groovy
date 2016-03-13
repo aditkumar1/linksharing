@@ -122,5 +122,9 @@ class ApplicationTagLib {
             out<<g.render(template: "/topic/templates/subscription",model: [subscription:subscription])
         }
     }
+    def showEditTopic={attr->
+        def topic=attr?.topic
+        out<<g.render(template: "/topic/templates/editTopic",model: [topic: topic])
+    }
 
 }

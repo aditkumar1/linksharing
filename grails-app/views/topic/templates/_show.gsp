@@ -9,6 +9,9 @@
             </div>
             <div class="col-sm-9">
                 <div class="row">
+                    <ls:showEditTopic topic="${topic}"/>
+                </div>
+                <div class="row">
                     <span class="col-sm-12 pull-left"><a href="#">${topic.name}(${topic.visibility})</a></span>
                 </div>
                 <div class="row">

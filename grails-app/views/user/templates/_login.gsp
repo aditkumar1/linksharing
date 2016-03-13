@@ -20,10 +20,11 @@
             </div>
             <div class="form-group">
                 <div class="col-xs-offset-2 col-xs-9">
-                    <a href="#">Forgot Password</a>
+                    <a href="#"data-toggle="modal" data-target="#forgotPassword">Forgot Password</a>
                     <g:submitButton name="submit" class="pull-right" type="submit" >Login</g:submitButton>
                 </div>
             </div>
         </g:form>
+        <g:render template="/user/templates/forgotPassword"/>
     </div>
 </div>

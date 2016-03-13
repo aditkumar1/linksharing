@@ -31,7 +31,7 @@ class SubscriptionController {
         if(subscription){
             try{
                 subscription.seriousness=seriousness as Seriousness
-                subscription.save(failOnError: true)
+                subscription.save(failOnError: true,flush: true)
                  jsonObject.message= "success : ${subscription.seriousness}"
             }
             catch(ValidationException ve){

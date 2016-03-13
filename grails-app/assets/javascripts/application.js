@@ -59,6 +59,28 @@ $(document).on('click', ".markasread", function () {
 	url=$(this).attr('data-url')
 	makeAjaxcall(url,null,$(this))
 });
+$(document).on('click', ".buttonSave", function () {
+	console.log($(this).attr('data-url'));
+	id=$(this).attr('data-id')
+	console.log(id);
+	url=$(this).attr('data-url')
+	topic=$('#topicEditBox'+id).val()
+	data="id="+id+"&topic="+topic
+	console.log(data)
+	makeAjaxcall(url,data,$(this))
+});
+$(document).on('click', ".buttonCancel", function () {
+	id=$(this).attr('data-id')
+	$('div[data-id="editTopic' + id + '"]').each(function() {
+		$( this).hide();
+	});
+});
+$(document).on('click', ".topicEditIcon", function () {
+	id=$(this).attr('data-id')
+	$('div[data-id="editTopic' + id + '"]').each(function() {
+		$( this).show();
+	});
+});
 $( document ).ready(function() {
 
 });

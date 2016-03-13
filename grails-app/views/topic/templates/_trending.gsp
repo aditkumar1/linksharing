@@ -12,6 +12,14 @@
                     </div>
                     <div class="col-sm-9">
                         <div class="row">
+                            <div class="row">
+                                <ls:showEditTopic topic="${trendingTopic}"/>
+                            </div>
+                            <div class="row">
+                                <span class="col-sm-12 pull-left"><a href="${g.createLink(controller: 'topic',action: 'show',id: trendingTopic.id)}">${trendingTopic.name}</a></span>
+                            </div>
+                        </div>
+                        <div class="row">
                             <span class="col-sm-4 text-muted">@<%= trendingTopic.createdBy.username %></span>
                             <span class="col-sm-4 text-muted">Subscriptions</span>
                             <span class="col-sm-4 text-muted pull-right">Posts</span>
