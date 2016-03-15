@@ -26,7 +26,7 @@
     </div>
     <div class="row">
         <div id="box-left" class="col-xs-6">
-            <g:render template="/user/templates/profile-box-left" model="[user:user,createdTopics:createdTopics,subscribedTopics:subscribedTopics]"/>
+            <g:render template="/user/templates/profile-box-left" model="[user:user,createdTopics:createdTopics,subscribedTopics:subscribedTopics,totalCreatedTopicCount:totalCreatedTopicCount]"/>
         </div>
         <div id="box-right" class="col-xs-6">
             <g:render template="/user/templates/profile-box-right" model="createdPosts:createdPosts]" />

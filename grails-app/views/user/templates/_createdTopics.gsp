@@ -24,6 +24,9 @@
                     </div>
                     <div class="col-sm-9">
                         <div class="row">
+                            <ls:showEditTopic topic="${topicVO}"/>
+                        </div>
+                        <div class="row">
                             <span class="col-sm-12 pull-left"><a href="${g.createLink(controller: 'topic',action: 'show',id:topicVO.id)}">${topicVO.name}</a></span>
                         </div>
                         <div class="row">
@@ -41,5 +44,9 @@
                 <ls:canUpdateTopic topic="${topicVO}"/>
             </li>
         </g:each>
+        <li>
+            <util:remotePaginate controller='topic' action="createdTopics" total="${totalCreatedTopicCount}"
+                                 update="createdTopicPlaceHolder" max="5" params="[userId:createdTopics.first().createdBy.id]"/>
+        </li>
     </ul>
 </div>

@@ -128,8 +128,12 @@ class BootStrap {
             savedTopics.each {
                 new LinkResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,url: "http://www.download.com").save(failOnError:true);
                 new LinkResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,url: "http://www.download.com").save(failOnError:true);
-                new DocumentResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a1").save(failOnError:true);
-                new DocumentResource(description: it.name+"->resource",createdBy: it.createdBy,topic: it,filePath: "/opt/bin/a2").save(failOnError:true);
+                DocumentResource documentResource1=new DocumentResource(description: it.name+"->resource",createdBy: it.createdBy,contentType:'application/pdf' ,topic: it,filePath: "/opt/bin/a1");
+                DocumentResource documentResource2=new DocumentResource(description: it.name+"->resource",createdBy: it.createdBy,contentType:'application/pdf',topic: it,filePath: "/opt/bin/a2");
+                documentResource1.contentType='application/pdf'
+                documentResource2.contentType='application/pdf'
+                documentResource1.save(failOnError:true)
+                documentResource2.save(failOnError:true)
             }
 //            log.info("Resources creation successful");
             return true;

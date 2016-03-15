@@ -10,6 +10,7 @@ import grails.validation.ValidationException
 
 class ResourceController {
     def grailsApplication
+    def ResourceService
     protected void addToReadingItems(Resource resource){
         try {
                 Subscription.findAllByTopic(resource.topic).each{
@@ -23,6 +24,18 @@ class ResourceController {
             flash.error=ex.toString()
             throw ex
         }
+    }
+    def createdPost(int offset,int max){
+        User user=User.get(params.userId)
+        List<Resource> createdPosts = resourceService.search(new ResourceSearchCO(id: user.id,offset: offset,max: max))
+        long totalCreatedPostCount=Resource.findAllByCreatedBy(user).size()
+        render(template: '/resource/templates/created-posts',model: [createdPosts:createdPosts,totalCreatedPostCount:totalCreatedPostCount])
+    }
+    def showPost(int offset,int max){
+        Topic requestedTopic=Topic.get(params.topicId)
+        List<Resource> posts=requestedTopic.getPost(offset,max)
+        long totalPostCount=requestedTopic.getPostCount()
+        render(template: '/resource/templates/show-posts',model: [posts:posts,totalPostCount:totalPostCount])
     }
     def delete(int id) {
         User user= session.user

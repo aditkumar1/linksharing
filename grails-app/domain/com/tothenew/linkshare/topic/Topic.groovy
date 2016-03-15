@@ -70,9 +70,32 @@ class Topic {
         }
         return topicVos
     }
-    List<User> getSubscribedUsers(){
-        return Subscription.findAllByTopic(this).collect{
+    List<User> getSubscribedUsers(int offset=0,int max=5){
+        return Subscription.findAllByTopic(this,[offset:offset,max:max]).collect{
             it.subscribedBy
+        }
+    }
+    long getSubscribedUsersCount(){
+        return Subscription.createCriteria().get{
+            projections{
+                count('id')
+            }
+            eq('topic.id',this.id)
+        }
+    }
+    List<Resource> getPost(int offset=0,int max=5){
+        return Resource.createCriteria().list {
+            eq('topic.id',this.id)
+            firstResult(offset)
+            maxResults(max)
+        }
+    }
+    long getPostCount(){
+        return Resource.createCriteria().get{
+            projections {
+                count('id')
+            }
+            eq('topic.id',this.id)
         }
     }
     int getResourceCount(){

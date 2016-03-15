@@ -18,13 +18,15 @@ class UserController {
     def emailService
     def index() {
         User user=User.get(session.user.id)
+        long totalSubscribedTopicCount=Subscription.count()
         List<TopicVO> subscribedTopics =subscriptionService.search(new TopicSearchCO(id:user.id))
         List<TopicVO> trendingTopics= Topic.getTrendingTopics()
         List<TopicVO> createdTopics =subscribedTopics.findAll(){
             it.createdBy==user
         }
-        List<Resource> inbox=ReadingItem.getInbox(user)
-        render(view:"/index",model: [user:user,subscribedTopics: subscribedTopics,createdTopics:createdTopics,trendingTopics:trendingTopics,inbox:inbox])
+        List<Resource> inbox=user.getInbox()
+        long inboxItemsTotalCount=user.getInboxCount()
+        render(view:"/index",model: [user:user,subscribedTopics: subscribedTopics,totalSubscribedTopicCount:totalSubscribedTopicCount,createdTopics:createdTopics,trendingTopics:trendingTopics,posts:inbox,inboxItemsTotalCount:inboxItemsTotalCount])
     }
     def profile(ResourceSearchCO resourceSearchCO) {
         if(resourceSearchCO) {
@@ -35,10 +37,23 @@ class UserController {
                 }
             }
             List<TopicVO> createdTopics=topicService.search(new TopicSearchCO(id:resourceSearchCO.id))
+            long totalCreatedTopicCount=Topic.findAllByCreatedBy(user).size()
             List<TopicVO> subscribedTopics=subscriptionService.search(new TopicSearchCO(id:resourceSearchCO.id))
+            long totalSubscribedTopicCount=Subscription.count()
             List<Resource> createdPosts = resourceService.search(resourceSearchCO)
-            [createdPosts: createdPosts,createdTopics: createdTopics,subscribedTopics: subscribedTopics, user: user]
+            long totalCreatedPostCount=Resource.findAllByCreatedBy(user).size()
+            [createdPosts: createdPosts,createdTopics: createdTopics,subscribedTopics: subscribedTopics,totalSubscribedTopicCount: totalSubscribedTopicCount,totalCreatedTopicCount:totalCreatedTopicCount,totalCreatedPostCount:totalCreatedPostCount, user: user]
         }
+    }
+    def editProfile(){
+        User user=session.user
+        render(view:'editProfile')
+    }
+    def inbox(int offset,int max){
+        User user=User.get(session.user.id)
+        List<Resource> inbox=user.getInbox(offset,max)
+        long inboxItemsTotalCount=user.getInboxCount()
+        render(template: "/user/templates/inbox",model: [posts:inbox,inboxItemsTotalCount:inboxItemsTotalCount])
     }
 
     def image(Long id) {

@@ -1,10 +1,13 @@
 package com.tothenew.linkshare.user
 
 import com.tothenew.linkshare.topic.Topic
+import com.tothenew.linkshare.topic.TopicSearchCO
+import com.tothenew.linkshare.topic.TopicVO
 import grails.validation.ValidationException
 
 class SubscriptionController {
 
+    def subscriptionService
     def save(int id) {
         Map jsonObject = [:]
         Topic topic=Topic.get(id)
@@ -63,5 +66,17 @@ class SubscriptionController {
             jsonObject.error= "Not Found"
         }
         render jsonObject
+    }
+    def subscribedTopics(int offset,int max){
+        User user=User.get(session.user.id)
+        long totalSubscribedTopicCount=Subscription.count()
+        List<TopicVO> subscribedTopics =subscriptionService.search(new TopicSearchCO(id:user.id,offset: offset,max: max))
+        render(template: '/subscription/templates/show',model: [subscribedTopics:subscribedTopics,user:user,totalSubscribedTopicCount:totalSubscribedTopicCount])
+    }
+    def subscribedUsers(int offset,int max){
+        Topic requestedTopic=Topic.get(params.id)
+        List<User> subscribedUsers=requestedTopic.getSubscribedUsers(offset,max)
+        long totalSubscribedUserCount=requestedTopic.getSubscribedUsersCount()
+        render(template: subscribedUsers,model: [subscribedUsers:subscribedUsers,totalSubscribedUserCount:totalSubscribedUserCount,topic: requestedTopic])
     }
 }

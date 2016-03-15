@@ -119,6 +119,27 @@ class User {
     boolean equals(Object obj) {
         return super.equals(obj)
     }
+    List<Resource> getInbox(int offset=0,int max=5) {
+        List<Resource> unreadPosts = ReadingItem.createCriteria().list([offset:offset,max: max]) {
+            projections {
+                property("resource.id")
+            }
+            eq("user.id", this.id)
+            eq("isRead", false)
+            order("dateCreated", "desc")
+        }
+        Resource.getAll(unreadPosts)
+    }
+    long getInboxCount() {
+        def unreadPostsCount = ReadingItem.createCriteria().get {
+            projections {
+                count("resource.id")
+            }
+            eq("user.id", this.id)
+            eq("isRead", false)
+        }
+        return unreadPostsCount
+    }
     static namedQueries = {
         search {
             UserSearchCO userSearchCO ->

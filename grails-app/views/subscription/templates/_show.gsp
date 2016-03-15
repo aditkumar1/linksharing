@@ -1,4 +1,4 @@
-<div class="panel panel-default">
+<div class="panel panel-default" id="subscriptionPanel">
     <div class="panel-heading">
         <span class="panel-title">Subscriptions</span>
     </div>
@@ -31,5 +31,9 @@
                 <ls:canUpdateTopic topic="${topicVO}"/>
             </li>
         </g:each>
+        <li>
+            <util:remotePaginate controller='subscription' action="subscribedTopics" total="${totalSubscribedTopicCount}"
+                                 update="subscriptionPlaceHolder" max="5"/>
+        </li>
     </ul>
 </div>

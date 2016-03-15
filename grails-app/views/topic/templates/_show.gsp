@@ -12,7 +12,7 @@
                     <ls:showEditTopic topic="${topic}"/>
                 </div>
                 <div class="row">
-                    <span class="col-sm-12 pull-left"><a href="#">${topic.name}(${topic.visibility})</a></span>
+                    <span class="col-sm-12 pull-left"><a href="${g.createLink(controller: 'topic',action:'show',id: topic.id )}">${topic.name}(${topic.visibility})</a></span>
                 </div>
                 <div class="row">
                     <div class="col-sm-4 text-muted"><span>@<%= topic.createdBy.username %></span></div>

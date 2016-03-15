@@ -1,1 +1,3 @@
-<g:render template="/resource/templates/top-posts" model="[topPosts:inbox,title:'Inbox']"/>
+<div class="row" id="inboxPlaceHolder">
+    <g:render template="/user/templates/inbox" model="[topPosts:inbox]"/>
+</div>

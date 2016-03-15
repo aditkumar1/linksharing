@@ -9,6 +9,7 @@ import grails.validation.ValidationException
 
 class TopicController {
 def emailService
+    def topicService
     def show(int id, ResourceSearchCO resourceSearchCo){
         Topic requestedTopic=Topic.read(id);
         if(requestedTopic){
@@ -25,8 +26,10 @@ def emailService
                 case Visibility.PUBLIC:
                     //render("Success");
                     List<User> subscribedUsers=requestedTopic.getSubscribedUsers()
-                    List<Resource> posts=requestedTopic.resources.asList()
-                    [topic:requestedTopic,subscribedUsers:subscribedUsers,posts:posts]
+                    long totalSubscribedUserCount=requestedTopic.getSubscribedUsersCount()
+                    List<Resource> posts=requestedTopic.getPost()
+                    long totalPostCount=requestedTopic.getPostCount()
+                    [topic:requestedTopic,subscribedUsers:subscribedUsers,posts:posts,totalSubscribedUserCount:totalSubscribedUserCount,totalPostCount:totalPostCount]
                     break;
                 default:
                     flash.error="com.tothenew.linkshare.topicId object is corrupt";
@@ -37,6 +40,13 @@ def emailService
             redirect(controller: "Login" , action: "index");
         }
         //render flash.error
+    }
+
+    def createdTopics(int offset,int max){
+        User user=User.get(params?.userId)
+        long totalCreatedTopicCount=Topic.findAllByCreatedBy(user).size()
+        List<TopicVO> createdTopics=topicService.search(new TopicSearchCO(id:user?.id))
+        render(template: '/user/templates/createdTopics',model: [createdTopics:createdTopics,totalCreatedTopicCount:totalCreatedTopicCount])
     }
     def update(int id,String visibility) {
         Map jsonObject = [:]

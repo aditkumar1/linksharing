@@ -11,7 +11,7 @@ class ResourceService {
 
     List<Resource> search(ResourceSearchCO resourceSearchCO){
 
-        List<Resource> resources = Resource.search(resourceSearchCO).list()
+        List<Resource> resources = Resource.search(resourceSearchCO).list(offset:resourceSearchCO.offset,max:resourceSearchCO.max)
 
         return resources
     }

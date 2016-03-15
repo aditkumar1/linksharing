@@ -14,7 +14,7 @@
 
 <body>
 <div id="header">
-    <g:render template="/templates/header-us"/>
+    <g:render template="/templates/header-dashboard"/>
 </div>
 <div class="container-fluid">
     <div class="row">

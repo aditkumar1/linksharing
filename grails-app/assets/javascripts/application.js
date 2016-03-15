@@ -24,7 +24,7 @@ $(document)
 	})
 	.ajaxStop(function(){
 		$("#ajaxSpinnerImage").hide();
-		//location.reload();
+	//	location.reload();
 	});
 $(document).on('click', ".subscription", function () {
 	console.log($(this).attr('data-url'));
