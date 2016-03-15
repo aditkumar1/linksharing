@@ -5,7 +5,7 @@
         </h3>
     </div>
     <div class="panel-body">
-        <g:uploadForm class="form-horizontal" controller="login" action="register" name="registerForm">
+        <g:uploadForm class="form-horizontal" controller="user" action="updateProfile" name="registerForm">
             <div class="form-group">
                 <label class="col-xs-4">First Name</label>
 
@@ -23,14 +23,6 @@
             </div>
 
             <div class="form-group">
-                <label class="col-xs-4">Email</label>
-
-                <div class="col-xs-8">
-                    <g:field type="email" name="email" class="form-control"/>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="col-xs-4">Username</label>
 
                 <div class="col-xs-8">
@@ -39,32 +31,18 @@
             </div>
 
             <div class="form-group">
-                <label class="col-xs-4">Password</label>
-
-                <div class="col-xs-8">
-                    <g:passwordField name="password" class="form-control"/>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-xs-4">Confirm Password</label>
-
-                <div class="col-xs-8">
-                    <g:passwordField name="confirmPassword" class="form-control"/>
-                </div>
-            </div>
-
-            <div class="form-group">
                 <label class="col-xs-4">Photo</label>
+
                 <div class="col-xs-8">
                     <g:field type="file" accept=".jpg,.jpeg,.png" name="photo" class="form-control"/>
                     <g:hiddenField name="admin" value="false"></g:hiddenField>
                 </div>
+
             </div>
 
             <div class="form-group">
                 <div class="col-xs-10">
-                    <g:submitButton name="register" value="Register" class="btn btn-primary"/>
+                    <g:submitButton name="register" value="updateProfile" class="btn btn-primary"/>
                 </div>
             </div>
         </g:uploadForm>

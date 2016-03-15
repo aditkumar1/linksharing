@@ -43,12 +43,12 @@
 
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    <span style="margin-right:10px" class="glyphicon glyphicon-user"></span>Uday
+                    <span style="margin-right:10px" class="glyphicon glyphicon-user"></span>${session.user.firstName}
                     <b class="caret"></b>
                 </a>
 
                 <ul class="dropdown-menu">
-                    <li><a href="#">Profile</a></li>
+                    <li><a href="${g.createLink(controller: 'user', action: 'editProfile')}">Profile</a></li>
                     <g:if test="${session.user.admin}">
                         <li><a href="${g.createLink(controller: 'user', action: 'list')}">Users</a></li>
                     </g:if>

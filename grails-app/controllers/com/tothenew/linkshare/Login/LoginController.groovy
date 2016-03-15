@@ -43,8 +43,6 @@ class LoginController {
         redirect(action:"index");
     }
     def register() {
-        String imagePath  = photoUploaderService.uploadPicture(params.photo)
-        params.imagePath = imagePath
         User registerUser = new User(params)
         if (registerUser.validate()) {
             registerUser.save(flush: true)

@@ -16,6 +16,7 @@ class UserController {
     def subscriptionService
     def resourceService
     def emailService
+    def photoUploaderService
     def index() {
         User user=User.get(session.user.id)
         long totalSubscribedTopicCount=Subscription.count()
@@ -45,9 +46,42 @@ class UserController {
             [createdPosts: createdPosts,createdTopics: createdTopics,subscribedTopics: subscribedTopics,totalSubscribedTopicCount: totalSubscribedTopicCount,totalCreatedTopicCount:totalCreatedTopicCount,totalCreatedPostCount:totalCreatedPostCount, user: user]
         }
     }
+    def updateProfile(){
+        User user=User.get(session.user.id)
+        user.properties=params
+        try{
+            user.updateInstance()
+            flash.message="User profile successfully updated"
+        }
+        catch(ValidationException ve){
+            flash.error=ve.toString()
+        }
+        catch(Exception ex){
+            flash.error=ex.toString()
+        }
+        redirect(action: 'editProfile')
+    }
+    def updatePassword(String password, String confirmPassword){
+        User user=User.get(session.user.id)
+        user.password=password
+        user.confirmPassword=confirmPassword
+        try{
+            user.updateInstance()
+            flash.message="Password successfully updated"
+        }
+        catch(ValidationException ve){
+            flash.error=ve.toString()
+        }
+        catch(Exception ex){
+            flash.error=ex.toString()
+        }
+        redirect(action: 'editProfile')
+    }
     def editProfile(){
         User user=session.user
-        render(view:'editProfile')
+        List<TopicVO> createdTopics=topicService.search(new TopicSearchCO(id:user.id))
+        long totalCreatedTopicCount=Topic.findAllByCreatedBy(user).size()
+        [createdTopics: createdTopics,totalCreatedTopicCount: totalCreatedTopicCount,user:user]
     }
     def inbox(int offset,int max){
         User user=User.get(session.user.id)

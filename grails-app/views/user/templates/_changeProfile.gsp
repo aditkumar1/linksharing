@@ -3,95 +3,59 @@
     <div class = "panel-heading">
         <h3 class = "panel-title">
             Profile
-
         </h3>
-
     </div>
 
     <div class = "panel-body">
-
-        <form class="form-horizontal">
-
+        <g:uploadForm class="form-horizontal" controller="user" action="updateProfile">
             <div class="form-group">
-
                 <div class="col-xs-6">
-
-                    <label for="inputEmail" class="control-label text-left">First Name*</label>
-
+                    <label for="inputFirstName" class="control-label text-left">First Name*</label>
                 </div>
 
                 <div class="col-xs-6">
-
-                    <input type="text" class="form-control" id="inputName" placeholder="Name">
-
+                    <input type="text" class="form-control" id="inputFirstName" name="firstName" placeholder="Name">
                 </div>
 
             </div>
 
             <div class="form-group">
-
                 <div class="col-xs-6">
-
-                    <label for="inputEmail" class="control-label text-left">Last Name*</label>
-
+                    <label for="inputLastName" class="control-label text-left">Last Name*</label>
                 </div>
-
                 <div class="col-xs-6">
-
-                    <input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
-
+                    <input type="text" class="form-control" name="lastName" id="inputLastName" placeholder="Last Name">
                 </div>
-
             </div>
-
             <div class="form-group">
-
                 <div class="col-xs-6">
-
-                    <label for="inputEmail" class="control-label text-left">User Name*</label>
-
+                    <label for="inputUserName" class="control-label text-left">User Name*</label>
                 </div>
 
                 <div class="col-xs-6">
 
-                    <input type="text" class="form-control" id="inputUserName" placeholder="User Name">
+                    <input type="text" class="form-control" name="username" id="inputUserName" placeholder="User Name">
 
                 </div>
 
             </div>
-
-
-            <div class="form-group">
-
-                <div class="col-xs-6">
-                    <label for="inputEmail" class="control-label">Photo</label>
+                <div class="form-group">
+                    <label class="col-xs-6">Photo</label>
+                    <div class="col-xs-6">
+                        <g:field type="file" accept=".jpg,.jpeg,.png" name="photo" class="form-control"/>
+                    </div>
                 </div>
 
-                <div class="col-xs-4">
-
-                    <input type="text" class="form-control" id="inputName" placeholder="Photo">
-
-                </div>
-                <div class="col-xs-2">
-
-                    <button class="pull-right" type="submit" >Browse</button>
-
-                </div>
-
-            </div>
             <div class="form-group">
 
                 <div class="col-xs-offset-2 col-xs-10">
-
-
-                    <button class="pull-right col-xs-3" type="submit" >Update</button>
-
+                    <g:submitButton name="submit" class="pull-right col-xs-3" type="submit" >Update</g:submitButton>
                 </div>
 
             </div>
 
 
-        </form>
+        </g:uploadForm>
     </div>
 
 
