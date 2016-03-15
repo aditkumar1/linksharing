@@ -6,7 +6,7 @@
             </div>
             <div class="col-sm-8">
                 <div class="row">
-                    <span><h4><%=user.name %></h4></span>
+                    <span><a href="${g.createLink(controller: 'user',action: 'profile',params: ['resourceSearchCO.id':user.id])}"> <h4><%=user.name %></h4></a></span>
                 </div>
                 <div class="row">
                     <p class="text-muted">

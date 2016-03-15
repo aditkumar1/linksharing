@@ -5,6 +5,7 @@ import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.topic.Visibility
 import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
+import grails.converters.JSON
 import grails.validation.ValidationException
 
 class ResourceController {
@@ -29,7 +30,7 @@ class ResourceController {
             Resource resource=Resource.load(id)
             if(user.canDeleteRsourceOrTopic(resource)){
                 resource.delete(flush:true)
-                flash.message= "resource Deleted "+id
+                flash.message= "Resource Deleted -"+resource.description
                 redirect(controller: "user",action: "index")
             }
         }
@@ -37,6 +38,26 @@ class ResourceController {
             flash.error=e.toString()
             redirect(controller: "user",action: "index")
         }
+    }
+    def updateResourceDescription(long id,String description)
+    {
+        Map jsonObject = [:]
+        Resource resource = Resource.read(id)
+        if(resource)
+        {
+            resource.description = description
+            try {
+                resource.save(failOnError: true,flush: true)
+                jsonObject.message = "Resource Description Updated"
+            }
+            catch (Exception ex){
+                jsonObject.message = "Resource Description Could not be Updated"
+            }
+        }
+        else {
+            jsonObject.message = "Cannot find resource"
+        }
+        render jsonObject as JSON
     }
     def search(ResourceSearchCO resourceSearchCo){
         if(resourceSearchCo.q){
@@ -50,14 +71,15 @@ class ResourceController {
     def show(int id){
         Resource resource=Resource.get(id)
         User user=session.user
-        if(resource&&user&&resource.canViewedBy(user)){
+        if(user&&resource&&user&&resource.canViewedBy(user)){
         List<TopicVO> trendingTopics= Topic.getTrendingTopics()
         //RatingInfoVO ratingInfoVo=resource.getRatingInfo()
             RatingInfoVO ratingInfoVO=resource.getRatingInfo()
             [user:user,resource:resource,ratingInfoVO:ratingInfoVO,trendingTopics:trendingTopics]
         }
         else{
-                flash.error= "resource not found or user not authorized"
+                flash.error= "Resource not found or user not authorized"
+                redirect(controller: "login",action: "index")
         }
     }
 }

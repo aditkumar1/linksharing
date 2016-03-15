@@ -9,6 +9,7 @@ class LoginController {
     //static scope="prototype"
     def messageSource
     def mailService
+    def photoUploaderService
     def index(int offset, int max) {
 //        def message = messageSource.getMessage("login.index.array.out.of.bounds", null, Locale.FRENCH)
 //
@@ -19,13 +20,11 @@ class LoginController {
 //        }
         int lOffset = offset ?: 0;
         int lMax = max ?: 3
-
         if(session.user){
             redirect(controller: "user",action: "index");
         }
         else {
-            List<ResourceVO> topPosts = Resource.getTopPosts(lOffset,lMax);
-            [topPosts:topPosts, count:topPosts.size(),recentPosts:Resource.getRecentPosts()]
+            [recentPosts:Resource.getRecentPosts()]
         }
     }
     def loginHandler(String username,String password){
@@ -33,16 +32,28 @@ class LoginController {
         if(loggedInUser){
             if(loggedInUser.active){
                 session.user=loggedInUser;
-                redirect(action:"index");
             }
             else{
-                flash.error="user is not active";
+                flash.error="User is not active";
             }
         }
         else{
-            flash.error="user not found";
+            flash.error="User not found";
         }
-        render(flash.error);
+        redirect(action:"index");
+    }
+    def register() {
+        String imagePath  = photoUploaderService.uploadPicture(params.photo)
+        params.imagePath = imagePath
+        User registerUser = new User(params)
+        if (registerUser.validate()) {
+            registerUser.save(flush: true)
+            session.user=registerUser
+            flash.message="Registration Successfull"
+        } else {
+            flash.error="Could not register user field ${registerUser.errors.fieldError} cannot have value ${registerUser.errors.fieldError.rejectedValue}"
+        }
+        redirect(controller: 'login',action: 'index')
     }
 
     def logout(){

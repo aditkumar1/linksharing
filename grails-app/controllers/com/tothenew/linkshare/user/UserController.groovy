@@ -1,5 +1,6 @@
 package com.tothenew.linkshare.user
 
+import com.tothenew.linkshare.resource.ReadingItem
 import com.tothenew.linkshare.resource.Resource
 import com.tothenew.linkshare.resource.ResourceSearchCO
 import com.tothenew.linkshare.topic.EmailDTO
@@ -22,7 +23,8 @@ class UserController {
         List<TopicVO> createdTopics =subscribedTopics.findAll(){
             it.createdBy==user
         }
-        render(view:"/index",model: [user:user,subscribedTopics: subscribedTopics,createdTopics:createdTopics,trendingTopics:trendingTopics])
+        List<Resource> inbox=ReadingItem.getInbox(user)
+        render(view:"/index",model: [user:user,subscribedTopics: subscribedTopics,createdTopics:createdTopics,trendingTopics:trendingTopics,inbox:inbox])
     }
     def profile(ResourceSearchCO resourceSearchCO) {
         if(resourceSearchCO) {
@@ -53,21 +55,6 @@ class UserController {
         out.write(photo)
         out.flush()
         out.close()
-    }
-    def register(){
-        println params.confirmPassword
-        User newUser=new User(email: params.email,username: params.username,password: params.password,confirmPassword: params.confirmPassword,firstName: params.firstName,lastName: params.lastName,admin: params.admin,active: params.active);
-        try {
-            newUser.save(flush: true, failOnError: true);
-            session.user=newUser
-            flash.message= "Success"
-        }
-        catch(ValidationException ve) {
-            flash.error=(ve.toString());
-        }
-        finally {
-            redirect(controller: "login",action: "index")
-        }
     }
 
     def topics(Long id) {
@@ -100,13 +87,17 @@ class UserController {
 
         if (session.user) {
             if (session.user.admin) {
-
                 List<User> users = User.search(userSearchCO).list(max: userSearchCO.max, sort: userSearchCO.sort, order: userSearchCO.order)
                 [usersList: users]
-            } else
+            } else{
+                flash.error="Only admin have access to this page"
                 redirect(controller: "login", action: "index")
-        } else
+            }
+
+        } else{
+            flash.error="PLease login to this page.Only admin have access to this page"
             redirect(controller: "login", action: "index")
+        }
     }
 
     def toggleActive(Long id) {
@@ -133,6 +124,7 @@ class UserController {
         }
         redirect(controller: "user", action: "list")
     }
+
 
     def forgotPassword(String recoveryemail) {
         User user = User.findByEmail(recoveryemail)

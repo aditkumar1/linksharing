@@ -4,56 +4,71 @@
             Register
         </h3>
     </div>
-    <div class = "panel-body">
-        <g:form name="login" controller="user" action="register" class="form-horizontal">
+    <div class="panel-body">
+        <g:uploadForm class="form-horizontal" controller="login" action="register" name="registerForm">
             <div class="form-group">
-                <label for="inputFName" class="control-label col-xs-3">Name*</label>
-                <div class="col-xs-9">
-                    <input type="text" class="form-control" id="inputFName" name="firstName" placeholder="Name">
+                <label class="col-xs-4">First Name</label>
+
+                <div class="col-xs-8">
+                    <g:textField name="firstName" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="inputLName" class="control-label col-xs-3">Last Name*</label>
-                <div class="col-xs-9">
-                    <input type="text" class="form-control" id="inputLName" name="lastName" placeholder="Last Name">
+                <label class="col-xs-4">Last Name</label>
+
+                <div class="col-xs-8">
+                    <g:textField name="lastName" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="inputEmail" class="control-label col-xs-3">E-mail</label>
-                <div class="col-xs-9">
-                    <input type="text" class="form-control" id="inputEmail" name="email" placeholder="E-mail">
+                <label class="col-xs-4">Email</label>
+
+                <div class="col-xs-8">
+                    <g:field type="email" name="email" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="inputName" class="control-label col-xs-3">User Name</label>
-                <div class="col-xs-9">
-                    <input type="text" class="form-control" id="inputName" name="username" placeholder="User Name">
+                <label class="col-xs-4">Username</label>
+
+                <div class="col-xs-8">
+                    <g:textField name="username" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="inputPass" class="control-label col-xs-3">Password*</label>
-                <div class="col-xs-9">
-                    <input type="password" class="form-control" id="inputPass" name="password" placeholder="Password">
+                <label class="col-xs-4">Password</label>
+
+                <div class="col-xs-8">
+                    <g:passwordField name="password" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="inputCPass" class="control-label col-xs-3">Confirm Password*</label>
-                <div class="col-xs-9">
-                    <input type="password" class="form-control" id="inputCPass" name="confirmPassword" placeholder="Password">
+                <label class="col-xs-4">Confirm Password</label>
+
+                <div class="col-xs-8">
+                    <g:passwordField name="confirmPassword" class="form-control"/>
                 </div>
             </div>
+
             <div class="form-group">
-                <label for="inputPhone" class="control-label col-xs-3">Phone</label>
-                <div class="col-xs-9">
-                    <input type="text" class="form-control" id="inputPhone" name="confirmPhone" placeholder="Phone">
+                <label class="col-xs-4">Photo</label>
+
+                <div class="col-xs-8">
+                    <g:field type="file" accept=".jpg,.jpeg,.png" name="photo" class="form-control"/>
+                    <g:hiddenField name="admin" value="false"></g:hiddenField>
+                </div>
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-xs-10">
+                    <g:submitButton name="register" value="Register" class="btn btn-primary"/>
                 </div>
             </div>
-            <div class="form-group">
-                <g:hiddenField name="admin" value="false"></g:hiddenField>
-                <div class="col-xs-offset-2 col-xs-9">
-                    <button class="pull-right" type="submit" >Register</button>
-                </div>
-            </div>
-        </g:form>
+        </g:uploadForm>
     </div>
 </div>

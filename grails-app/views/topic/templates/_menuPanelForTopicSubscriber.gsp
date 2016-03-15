@@ -5,6 +5,6 @@
         </span>
     </div>
     <div class="col-xs-4">
-        <span class="col-sm-1 pull-left glyphicon glyphicon-envelope" style="font-size:20px"></span>
+        <a href='javascript:void(0)' class='topicInviteIcon' data-id="${topic?.id}"><span class="col-sm-1 pull-left glyphicon glyphicon-envelope" style="font-size:20px"></span></a>
     </div>
 </div>

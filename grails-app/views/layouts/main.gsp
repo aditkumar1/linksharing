@@ -1,3 +1,4 @@
+<%@ page import="com.tothenew.linkshare.topic.Topic" %>
 <!DOCTYPE html>
 <!--[if lt IE 7 ]> <html lang="en" class="no-js ie6"> <![endif]-->
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7"> <![endif]-->
@@ -23,6 +24,13 @@
 </head>
 
 <body>
+<g:set var="subscribedTopics" value="${Topic.all}"></g:set>
+<g:if test="${session.user}">
+    <g:render template="/topic/templates/create" />
+    <g:render template="/documentResource/templates/create" model="[subscribedTopics: subscribedTopics]"/>
+    <g:render template="/linkResource/templates/create" model="[subscribedTopics: subscribedTopics]"/>
+    <g:render template="/topic/templates/email" model="[subscribedTopics: subscribedTopics]"/>
+</g:if>
 <g:layoutBody/>
 <div id="ajaxSpinnerContainer">
     <asset:image src="spinner.gif" id="ajaxSpinnerImage" title="working..."/>

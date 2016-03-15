@@ -48,7 +48,7 @@
                    <i class="fa fa-twitter"></i> </span>
                  <span class="col-sm-1 pull-left">
                    <i class="fa fa-google-plus"></i></span>
-                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">view post</a></span>
+                 <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="${g.createLink(controller: 'resource',action: 'show',id: post.id)}">view post</a></span>
                  <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:markAsRead resource="${post}"/> </span>
                  <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:displayResource resource="${post}"/> </span>
 

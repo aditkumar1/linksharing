@@ -16,16 +16,18 @@
                         </div>
                         <div class="col-sm-9">
                             <div class="row">
-                                <span class="col-sm-4"><a href="#"><%= posts.createdBy.name %></a></span><span class="col-sm-4 text-muted">@<%= posts.createdBy.username %> 5min</span>
+                                <span class="col-sm-4"><a href="${g.createLink(controller: 'user',action: 'profile',params: ["resourceSearchCO.id":posts.createdBy.id])}"><%= posts.createdBy.name %></a></span><span class="col-sm-4 text-muted">@<%= posts.createdBy.username %> 5min</span>
                             </div>
                             <div class="row">
-                                <h4><%= posts.topicName %></h4>
+                                <h4><%= posts.topic.name %></h4>
                                 <p>
                                     <%= posts.description %>
                                 </p>
                             </div>
                             <div class="row">
-                                <span class="col-sm-1 pull-left"><i class="fa fa-facebook"></i> </span><span class="col-sm-1 pull-left"><i class="fa fa-twitter"></i> </span><span class="col-sm-1 pull-left"><i class="fa fa-google-plus"></i></span><span class="col-sm-4 pull-right"><a href="#">view post</a></span>
+                                <span class="col-sm-1 pull-left"><i class="fa fa-facebook"></i> </span><span class="col-sm-1 pull-left"><i class="fa fa-twitter"></i> </span><span class="col-sm-1 pull-left"><i class="fa fa-google-plus"></i></span>
+                                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="${g.createLink(controller: 'resource',action: 'show',id: posts.id)}">view post</a></span>
+                                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:displayResource resource="${posts}"/> </span>
                             </div>
                         </div>
                     </div>

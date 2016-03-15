@@ -1,7 +1,9 @@
 package com.tothenew.linkshare
 
+import com.tothenew.linkshare.resource.DocumentResource
 import com.tothenew.linkshare.resource.LinkResource
 import com.tothenew.linkshare.resource.ReadingItem
+import com.tothenew.linkshare.resource.ResourceSearchCO
 import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicVO
 import com.tothenew.linkshare.user.Subscription
@@ -38,7 +40,7 @@ class ApplicationTagLib {
             out<<g.link(url: ((LinkResource)resource).url,"View full site")
         }
         else{
-            out<<g.link(url:"#","Download")
+            out<<g.link(url:g.createLink(controller: 'documentResource',action: 'download',id: resource.id),"Download")
         }
     }
     def canDeleteResource={attr->
@@ -74,7 +76,7 @@ class ApplicationTagLib {
         if(attrs.user){
             User user=attrs.user
             count=user.getUserSubscriptionsCount()
-            output=g.link(controller: "user",action: "show",params: [id:attrs.topicId],count.toString())
+            output=g.link(controller: "user",action: "profile",params: ["resourceSearchCO.id":user.id],count.toString())
         }
         out<<output
     }
@@ -93,7 +95,7 @@ class ApplicationTagLib {
         if(attrs.user){
             User user=attrs.user
             count=user.getUserTopicsCount()
-            out<<g.link(controller: "user",action: "show",params: [id:user.id],count.toString())
+            out<<g.link(controller: "user",action: "profile",params: ["resourceSearchCO.id":user.id],count.toString())
         }
     }
     def userImage={attr->
@@ -103,14 +105,16 @@ class ApplicationTagLib {
     }
     def canUpdateTopic={attr->
         User user=session.user
-        def topic=attr?.topic
-        Subscription subscription=user.getSubscription(topic?.id)
-        if(subscription){
-            if(topic.createdBy.equals(user)){
-                out<<g.render(template: "/topic/templates/menuPanelForTopicCreator",model: [topic:topic])
-            }
-            else {
-                out<<g.render(template: "/topic/templates/menuPanelForTopicSubscriber",model: [topic:topic])
+        if(user){
+            def topic=attr?.topic
+            Subscription subscription=user.getSubscription(topic?.id)
+            if(subscription){
+                if(topic.createdBy.equals(user)){
+                    out<<g.render(template: "/topic/templates/menuPanelForTopicCreator",model: [topic:topic])
+                }
+                else {
+                    out<<g.render(template: "/topic/templates/menuPanelForTopicSubscriber",model: [topic:topic])
+                }
             }
         }
     }
@@ -125,6 +129,10 @@ class ApplicationTagLib {
     def showEditTopic={attr->
         def topic=attr?.topic
         out<<g.render(template: "/topic/templates/editTopic",model: [topic: topic])
+    }
+    def showEditResource={attr->
+        def resource=attr?.resource
+        out<<g.render(template: "/resource/templates/editResource",model: [resource: resource])
     }
 
 }

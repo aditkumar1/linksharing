@@ -3,25 +3,23 @@ package com.tothenew.linkshare
 class ApplicationFilters {
 
     def filters = {
-//        redirectToLogin(controller: "*", action: "*") {
-//            before = {
-//                if (!session.user) {
-////                    redirect(controller: "login", action: "index")
-//                }
-//            }
-//        }
-        sessionCheck(controller: 'login' , invert:true){
-            before={
-                if(!session.user){
-                    redirect(controller:"login",action:"index");
+        def filters = {
+            all(controller:'*', action:'*') {
+                before = {
+
+                    log.info "Controller : ${controllerName}, Action : ${actionName}"
+                    log.info params
+
                 }
-            }
-        }
-        logging(controller:'*', action:'*') {
-            before = {
-                log.info(params);
+                after = { Map model ->
+
+                }
+                afterView = { Exception e ->
+
+                }
             }
         }
 
     }
 }
+

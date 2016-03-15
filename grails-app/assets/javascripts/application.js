@@ -81,6 +81,34 @@ $(document).on('click', ".topicEditIcon", function () {
 		$( this).show();
 	});
 });
+$(document).on('click', ".buttonSaveResource", function () {
+	console.log($(this).attr('data-url'));
+	id=$(this).attr('data-id')
+	console.log(id);
+	url=$(this).attr('data-url')
+	description=$('#resourceEditBox'+id).val()
+	data="id="+id+"&description="+description
+	console.log(data)
+	makeAjaxcall(url,data,$(this))
+});
+$(document).on('click', ".buttonCancelResource", function () {
+	id=$(this).attr('data-id')
+	$('div[data-id="editResource' + id + '"]').each(function() {
+		$( this).hide();
+	});
+});
+$(document).on('click', ".resourceEditIcon", function () {
+	id=$(this).attr('data-id')
+	$('div[data-id="editResource' + id + '"]').each(function() {
+		$( this).show();
+	});
+});
+$(document).on('click', ".topicInviteIcon", function () {
+	id=$(this).attr('data-id')
+	console.log(name)
+	$('#sendInvitation').modal('show')
+	$('#sendInvitation').find('#topicSelect').val(id)
+});
 $( document ).ready(function() {
 
 });

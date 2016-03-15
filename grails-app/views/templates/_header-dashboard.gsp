@@ -4,10 +4,10 @@
 <nav class="navbar navbar-default" role="navigation">
 
     <div class="navbar-header">
-        <a class="navbar-brand" href="#">Link Sharing</a>
+        <a class="navbar-brand" href="${g.createLink(controller: 'login',action: 'index')}">Link Sharing</a>
     </div>
 
-
+<g:if test="${session.user}">
     <div>
         <ul class="nav navbar-nav navbar-right">
 
@@ -49,17 +49,19 @@
 
                 <ul class="dropdown-menu">
                     <li><a href="#">Profile</a></li>
-                    <li><a href="#">Users</a></li>
-                    <li><a href="#">Topics</a></li>
-                    <li><a href="#">Posts</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <g:if test="${session.user.admin}">
+                        <li><a href="${g.createLink(controller: 'user', action: 'list')}">Users</a></li>
+                    </g:if>
+                    <li><a href="${g.createLink(controller: 'login', action: 'logout')}">Logout</a></li>
+
+                    </ul>
+
+                </li>
 
                 </ul>
-
-            </li>
-
-        </ul>
     </div>
+</g:if>
+
 
     <div class="nav navbar-nav navbar-right" style="padding-right:20%">
         <form class="navbar-form" role="search">

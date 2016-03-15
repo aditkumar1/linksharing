@@ -30,6 +30,9 @@
                         ${resource.description}
                     </p>
                     </div>
+                    <div class="row">
+                        <ls:showEditResource resource="${resource}"/>
+                    </div>
                 </div>
             </div>
 
@@ -41,12 +44,13 @@
                     <i class="fa fa-twitter"></i> </span>
                 <span class="col-sm-1 pull-left">
                     <i class="fa fa-google-plus"></i></span>
-                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Delete</a></span>
+                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="${g.createLink(controller: 'resource',action: 'delete',id: resource.id)}">Delete</a></span>
                 <g:if test="${session.user}">
-                    <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Edit </a></span>
+                    <a href='javascript:void(0)' class='resourceEditIcon' data-id="${resource?.id}"><span class="pull-right" style="margin-right:10px;text-decoration:underline">Edit</span> </a>
+                    <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:markAsRead resource="${resource}"/> </span>
                 </g:if>
-                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">Download </a></span>
-                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="#">view full site </a></span>
+                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="${g.createLink(controller: 'resource',action: 'show',id: resource.id)}">view post</a></span>
+                <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:displayResource resource="${resource}"/> </span>
             </div>
         </div>
     </div>

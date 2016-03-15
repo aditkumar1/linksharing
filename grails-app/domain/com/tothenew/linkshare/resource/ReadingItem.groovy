@@ -15,5 +15,17 @@ class ReadingItem {
         resource blank:false,nullable:false
     }
     static belongsTo = [resource:Resource];
+    static getInbox(User user) {
+
+        List<Resource> unreadPosts = ReadingItem.createCriteria().list([max: 3]) {
+            projections {
+                property("resource.id")
+            }
+            eq("user.id", user.id)
+            eq("isRead", false)
+            order("dateCreated", "desc")
+        }
+        Resource.getAll(unreadPosts)
+    }
 }
 

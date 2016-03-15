@@ -14,7 +14,21 @@
 
 <body>
 <div id="header" >
-    <g:render template="/templates/header-home-page"/>
+    <g:render template="/templates/header-dashboard"/>
+</div>
+<div class="row">
+    <g:if test="${flash.message}">
+        <div class="col-xs-12 alert alert-success">
+            <label><%= flash.message %></label>
+        </div>
+    </g:if>
+</div>
+<div class="row">
+    <g:if test="${flash.error}">
+        <div class="col-xs-12 alert alert-danger">
+                <label><%= flash.error %></label>
+        </div>
+    </g:if>
 </div>
 <div class="container-fluid">
     <div class="row">
@@ -25,14 +39,14 @@
             <g:render template="/login/templates/box-right"></g:render>
         </div>
     </div>
-    <div class="row">
-        <g:each in="${topPosts}" var="post">
-            <li><p>${post.toString()}</p></li>
-        </g:each>
-    <g:paginate max="3"
-                    total="${count}" />
-    </div>
-</div>
+    %{--<div class="row">--}%
+        %{--<g:each in="${topPosts}" var="post">--}%
+            %{--<li><p>${post.toString()}</p></li>--}%
+        %{--</g:each>--}%
+    %{--<g:paginate max="3"--}%
+                    %{--total="${count}" />--}%
+    %{--</div>--}%
+%{--</div>--}%
 
 </body>
 </html>
