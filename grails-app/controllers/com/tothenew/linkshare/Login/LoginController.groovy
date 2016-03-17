@@ -27,6 +27,23 @@ class LoginController {
             [recentPosts:Resource.getRecentPosts()]
         }
     }
+
+    def validateEmail(){
+
+        User numUser = User.findByEmail(params.email)
+        log.info params.email
+        Boolean result = numUser ? false : true
+        render result
+    }
+
+    def validateUserName(){
+        System.err.println("................$params")
+        User numUser = User.findByUsername(params.username)
+        log.info params.username
+        Boolean result = numUser ? false : true
+        render result
+    }
+
     def loginHandler(String username,String password){
         User loggedInUser =User.findWhere(username: username,password: password);
         if(loggedInUser){

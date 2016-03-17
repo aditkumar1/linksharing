@@ -155,6 +155,84 @@ $(document).on('keypress','.search-main',function(e){
         window.location.replace(url)
     }
 });
+$(function () {
+	$('#registrationForm').validate({
+		rules: {
+			firstName:{
+				required: true
+			},
+			lastName:{
+				required: true
+			},
+			password:{
+				required: true,
+				minlength :5
+			},
+			confirmPassword:{
+				required: true,
+				confirm:true
+			},
+			username: {
+				required: true,
+				remote: {
+					url: "/login/validateUserName",
+					type: "post",
+					data:'username='+$('#username').val(),
+					success : function(data)
+					{
+						return data;
+					}
+				}
+			},
+			email: {
+				required: true,
+				email:true,
+				remote: {
+					url: "/login/validateEmail",
+					type: "post",
+					data:'email='+$('#email').val(),
+					success : function(data)
+					{
+						return data;
+					}
+				}
+			}
+		},
+		messages: {
+			firstName:{
+				required: "First name cant be blank",
+			},
+			lastName:{
+				required: "Last name cant be blank",
+			},
+			password:{
+				required: "Password cant be blank",
+				minlength: "Password should be atleast 5 character long"
+			},
+			confirmPassword:{
+				required: "Confirm password cant be blank"
+			},
+			email: {
+				required: "Email address cant be blank",
+				remote: "Email address entered is already used"
+			},
+			username: {
+				required: "User name cant be blank",
+				remote: "User name entered already exist"
+			}
+		}
+	});
+
+	jQuery.validator.addMethod("confirm", function (value, element) {
+		var result = false;
+		var password = $('form#registrationForm input[id=password]').val();
+
+		if (password === value) {
+			result = true;
+		}
+		return result;
+	}, "Confirm password not matched with password");
+});
 
 $( document ).ready(function() {
 
