@@ -16,7 +16,7 @@
         </div>
     </div>
     <ul class="list-group">
-        <g:each in="${createdTopics}" var="topicVO">
+        <g:each in="${topics}" var="topicVO">
             <li class="list-group-item">
                 <div class="row" style="margin-bottom:5px">
                     <div class="col-sm-3">
@@ -44,9 +44,5 @@
                 <ls:canUpdateTopic topic="${topicVO}"/>
             </li>
         </g:each>
-        <li>
-            <util:remotePaginate controller='topic' action="createdTopics" total="${totalCreatedTopicCount}"
-                                 update="createdTopicPlaceHolder" max="5" params="[userId:createdTopics.first().createdBy.id]"/>
-        </li>
     </ul>
 </div>

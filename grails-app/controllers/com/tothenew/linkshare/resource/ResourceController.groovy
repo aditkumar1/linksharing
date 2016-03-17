@@ -7,6 +7,7 @@ import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
 import grails.converters.JSON
 import grails.validation.ValidationException
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 class ResourceController {
     def grailsApplication
@@ -62,6 +63,7 @@ class ResourceController {
             try {
                 resource.save(failOnError: true,flush: true)
                 jsonObject.message = "Resource Description Updated"
+                jsonObject.description=description
             }
             catch (Exception ex){
                 jsonObject.message = "Resource Description Could not be Updated"
@@ -70,7 +72,7 @@ class ResourceController {
         else {
             jsonObject.message = "Cannot find resource"
         }
-        render jsonObject as JSON
+        render jsonObject as JSONObject
     }
     def search(ResourceSearchCO resourceSearchCo){
         if(resourceSearchCo.q){

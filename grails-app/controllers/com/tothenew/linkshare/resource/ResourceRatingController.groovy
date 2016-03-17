@@ -12,7 +12,8 @@ class ResourceRatingController {
         try{
             resourceRating.score=score
             resourceRating.save(failOnError: true)
-            flash.message="resource resource has been saved"
+            flash.message="resource rating has been saved"
+            redirect(controller: 'resource',action: 'show',id: resource.id)
         }
         catch(ValidationException ve){
             flash.error=ve.toString()

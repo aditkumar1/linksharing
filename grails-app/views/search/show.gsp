@@ -13,12 +13,13 @@
 </head>
 
 <body>
+
     <div class="row">
-        <div id="box-left" class="col-xs-6">
-            <g:render template="/topic/templates/box-left" model="[topic:topic,subscribedUsers:subscribedUsers]"/>
+        <div id="createdTopicPlaceHolder" class="col-xs-6">
+            <g:render template="/search/templates/topic-show"/>
         </div>
         <div id="showPostPlaceHolder" class="col-xs-6">
-            <g:render template="/resource/templates/show-posts"/>
+            <g:render template="/search/templates/resource-show"/>
         </div>
     </div>
 

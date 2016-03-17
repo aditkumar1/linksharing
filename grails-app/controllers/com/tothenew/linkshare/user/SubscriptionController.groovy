@@ -4,6 +4,7 @@ import com.tothenew.linkshare.topic.Topic
 import com.tothenew.linkshare.topic.TopicSearchCO
 import com.tothenew.linkshare.topic.TopicVO
 import grails.validation.ValidationException
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 class SubscriptionController {
 
@@ -26,7 +27,7 @@ class SubscriptionController {
         else{
             jsonObject.error= "com.tothenew.linkshare.topic not found"
         }
-        render jsonObject
+        render jsonObject as JSONObject
     }
     def update(int id,String seriousness) {
         Map jsonObject = [:]
@@ -46,7 +47,7 @@ class SubscriptionController {
         else{
             jsonObject.error="Subscription not found"
         }
-        render jsonObject
+        render jsonObject as JSONObject
     }
     def delete(long id) {
         User user=session.user
@@ -65,7 +66,7 @@ class SubscriptionController {
         catch(Exception ex){
             jsonObject.error= "Not Found"
         }
-        render jsonObject
+        render jsonObject as JSONObject
     }
     def subscribedTopics(int offset,int max){
         User user=User.get(session.user.id)

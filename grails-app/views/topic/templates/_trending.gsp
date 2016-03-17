@@ -16,7 +16,7 @@
                                 <ls:showEditTopic topic="${trendingTopic}"/>
                             </div>
                             <div class="row">
-                                <span class="col-sm-12 pull-left"><a href="${g.createLink(controller: 'topic',action: 'show',id: trendingTopic.id)}">${trendingTopic.name}</a></span>
+                                <span class="col-sm-12 pull-left"><a data-id="topic-${trendingTopic.id}" href="${g.createLink(controller: 'topic',action: 'show',id: trendingTopic.id)}">${trendingTopic.name}</a></span>
                             </div>
                         </div>
                         <div class="row">
@@ -35,6 +35,5 @@
             </li>
         </g:each>
     </ul>
-
 </div>
 

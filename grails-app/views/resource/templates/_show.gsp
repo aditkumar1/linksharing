@@ -7,8 +7,8 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="row">
-                        <span class="col-sm-6"><a href="#">${resource.createdBy.name}</a></span>
-                        <span class="col-sm-6 text-right"><a href="#">${resource.topic.name}</a></span>
+                        <span class="col-sm-6"><a href="${g.createLink(controller: 'user',action: 'profile',params: ['resourceSearchCO.id':resource.createdBy.id])}">${resource.createdBy.name}</a></span>
+                        <span class="col-sm-6 text-right"><a data-id="topic-${resource.topic.id}" href="${g.createLink(controller: 'topic',action: 'show',id:resource.topic.id)}">${resource.topic.name}</a></span>
                     </div>
 
                     <div class="row">
@@ -26,7 +26,7 @@
                         </span>
                     </div>
                     <div class="row">
-                        <p style="margin-left:2%">
+                        <p data-id="resource-${resource.id}" style="margin-left:2%">
                         ${resource.description}
                     </p>
                     </div>

@@ -14,7 +14,7 @@
                             <ls:showEditTopic topic="${topicVO}"/>
                         </div>
                         <div class="row">
-                            <span class="col-sm-12 pull-left"><a href="${g.createLink(controller: 'topic',action: 'show',id: topicVO.id)}">${topicVO.name}</a></span>
+                            <span class="col-sm-12 pull-left"><a data-id="topic-${topicVO.id}" href="${g.createLink(controller: 'topic',action: 'show',id: topicVO.id)}">${topicVO.name}</a></span>
                         </div>
                         <div class="row">
                             <div class="col-sm-4 text-muted"><span>@<%= topicVO.createdBy.username %></span></div>

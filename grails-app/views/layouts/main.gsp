@@ -31,7 +31,29 @@
     <g:render template="/linkResource/templates/create" model="[subscribedTopics: subscribedTopics]"/>
     <g:render template="/topic/templates/email" model="[subscribedTopics: subscribedTopics]"/>
 </g:if>
+<div id="header">
+    <g:render template="/templates/header-dashboard"/>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <g:if test="${flash.message}">
+            <div class="col-xs-12 alert alert-success">
+                <label><%= flash.message %></label>
+            </div>
+        </g:if>
+        <div class="col-xs-12 alert alert-success" style="display:none">
+            <label id="messagePlaceholder"></label>
+        </div>
+    </div>
+    <div class="row">
+        <g:if test="${flash.error}">
+            <div class="col-xs-12 alert alert-danger">
+                <label><%= flash.error %></label>
+            </div>
+        </g:if>
+    </div>
 <g:layoutBody/>
+</div>
 <div id="ajaxSpinnerContainer">
     <asset:image src="spinner.gif" id="ajaxSpinnerImage" title="working..."/>
 </div>

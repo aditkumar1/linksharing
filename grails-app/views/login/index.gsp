@@ -13,24 +13,8 @@
 </head>
 
 <body>
-<div id="header" >
-    <g:render template="/templates/header-dashboard"/>
-</div>
-<div class="row">
-    <g:if test="${flash.message}">
-        <div class="col-xs-12 alert alert-success">
-            <label><%= flash.message %></label>
-        </div>
-    </g:if>
-</div>
-<div class="row">
-    <g:if test="${flash.error}">
-        <div class="col-xs-12 alert alert-danger">
-                <label><%= flash.error %></label>
-        </div>
-    </g:if>
-</div>
-<div class="container-fluid">
+
+
     <div class="row">
         <div id="box-left" class="col-xs-7">
             <g:render template="/login/templates/box-left" model="[recentPosts:recentPosts]"></g:render>

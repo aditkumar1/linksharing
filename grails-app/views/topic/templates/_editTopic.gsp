@@ -1,7 +1,7 @@
 <div class="form-group editTopic" style="padding-bottom:25px" data-id="editTopic${topic.id}">
     <div class="col-xs-5">
         <input type="text" placeholder="Grails" class="form-control"
-               id="topicEditBox${topic.id}" value="${topic.name}">
+               data-id="topicEditBox-${topic.id}" value="${topic.name}">
     </div>
 
     <div class="col-xs-2">

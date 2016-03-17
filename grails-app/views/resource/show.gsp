@@ -13,10 +13,6 @@
 </head>
 
 <body>
-<div id="header">
-    <g:render template="/templates/header-dashboard"/>
-</div>
-<div class="container-fluid">
     <div class="row">
         <div class="col-xs-12">
             <g:if test="${flash.error}">
@@ -32,6 +28,5 @@
             <ls:trendingTopics/>
         </div>
     </div>
-</div>
 </body>
 </html>

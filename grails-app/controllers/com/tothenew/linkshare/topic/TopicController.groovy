@@ -6,6 +6,7 @@ import com.tothenew.linkshare.user.Subscription
 import com.tothenew.linkshare.user.User
 import grails.converters.JSON
 import grails.validation.ValidationException
+import org.codehaus.groovy.grails.web.json.JSONObject
 
 class TopicController {
 def emailService
@@ -66,7 +67,7 @@ def emailService
         else{
             jsonObject.error="Topic not found"
         }
-        render jsonObject as JSON
+        render jsonObject as JSONObject
     }
     def save(String name,String visibility){
         Map jsonObject = [:]
@@ -79,7 +80,7 @@ def emailService
             jsonObject.error="Exception caught :${ex.toString()}"
         }
         finally {
-            render jsonObject as JSON
+            render jsonObject as JSONObject
         }
     }
     def delete(long id) {
@@ -98,7 +99,7 @@ def emailService
         catch(Exception ex){
             jsonObject.error= "Not Found"
         }
-        render jsonObject as JSON
+        render jsonObject as JSONObject
     }
     def updateTopicName(long id,String topic)
     {
@@ -110,6 +111,7 @@ def emailService
             try {
                 updateTopic.save(failOnError: true,flush: true)
                 jsonObject.message = "Topic Updated"
+                jsonObject.topic=topic
             }
             catch (Exception ex){
                 jsonObject.message = "Could not be Updated"
@@ -118,7 +120,7 @@ def emailService
         else {
             jsonObject.message = "Cannot find topic"
         }
-        render jsonObject as JSON
+        render jsonObject as JSONObject
     }
     def invite(String email,long id) {
         Topic topic = Topic.get(id)

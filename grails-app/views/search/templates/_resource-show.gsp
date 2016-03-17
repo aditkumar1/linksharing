@@ -2,7 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title row">
-                <div class="col-md-12">Posts</div>
+                <div class="col-md-12">Posts : (<%= topic.name %>)</div>
             </div>
             <div class="row">
                 <div class="col-md-12">
@@ -20,7 +20,7 @@
         </div>
 
         <div class="panel-body">
-            <g:each in="${createdPosts}" var="post">
+            <g:each in="${posts}" var="post">
                 <div class="well">
 
                     <div class="row">
@@ -33,7 +33,7 @@
                                 <span class="col-sm-6 text-muted">@${post.createdBy.username}</span>
                             </div>
                             <div class="row">
-                                <h4 data-id="topic-${post.topic.id}">${post.topic.name}</h4>
+                                <h4>${post.topic.name}</h4>
                                 <p>
                                     <%= post.description %>
                                 </p>
@@ -49,16 +49,11 @@
                         <span class="col-sm-1 pull-left">
                             <i class="fa fa-google-plus"></i></span>
                         <span class="pull-right" style="margin-right:10px;text-decoration:underline"><a href="${g.createLink(controller: 'resource',action: 'show',id: post.id)}">view post</a></span>
+                        <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:markAsRead resource="${post}"/> </span>
                         <span class="pull-right" style="margin-right:10px;text-decoration:underline"><ls:displayResource resource="${post}"/> </span>
                     </div>
-
                 </div>
             </g:each>
-            <div class="row">
-                <util:remotePaginate controller='resource' action="createdPost" total="${totalCreatedPostCount}"
-                                     update="createdPostPlaceHolder" max="5" params="[userId:createdPosts.first().createdBy.id]"/>
-            </div>
-
         </div>
     </div>
 </div>

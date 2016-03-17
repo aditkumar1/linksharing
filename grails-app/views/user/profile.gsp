@@ -13,17 +13,7 @@
 </head>
 
 <body>
-<div id="header">
-    <g:render template="/templates/header-dashboard"/>
-</div>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12">
-            <g:if test="${flash.error}">
-                <label><%= flash.error %></label>
-            </g:if>
-        </div>
-    </div>
+
     <div class="row">
         <div id="box-left" class="col-xs-6">
             <g:render template="/user/templates/profile-box-left" model="[user:user,createdTopics:createdTopics,subscribedTopics:subscribedTopics,totalCreatedTopicCount:totalCreatedTopicCount]"/>
@@ -32,6 +22,5 @@
             <g:render template="/user/templates/profile-box-right" model="createdPosts:createdPosts]" />
         </div>
     </div>
-</div>
 </body>
 </html>

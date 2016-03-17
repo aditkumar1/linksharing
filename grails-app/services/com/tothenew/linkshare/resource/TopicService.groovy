@@ -24,6 +24,8 @@ class TopicService {
 
                 if(topicSearchCO.visibility)
                     eq('visibility', topicSearchCO.visibility)
+                if(topicSearchCO?.description)
+                    eq('name', "%${topicSearchCO.description}%")
             }
 
             topicList.each {

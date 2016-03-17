@@ -6,11 +6,7 @@
     </head>
 
     <body>
-    <div id="header">
-        <g:render template="/templates/header-dashboard"/>
-    </div>
 
-    <div class="container-fluid">
         <div class="row">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -108,7 +104,7 @@
             </div>
         </div>
 
-    </div>
+
 
     </body>
 

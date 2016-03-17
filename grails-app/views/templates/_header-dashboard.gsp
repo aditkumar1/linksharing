@@ -66,8 +66,7 @@
     <div class="nav navbar-nav navbar-right" style="padding-right:20%">
         <form class="navbar-form" role="search">
             <div class="input-group">
-                <input type="text" class="form-control" placeholder="Search" name="srch-term" id="srch-term">
-
+                <input type="text" class="form-control search-main" placeholder="Search"  id="search">
             </div>
         </form>
     </div>
