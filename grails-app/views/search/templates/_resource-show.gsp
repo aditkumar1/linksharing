@@ -2,20 +2,7 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title row">
-                <div class="col-md-12">Posts : (<%= topic.name %>)</div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <form class="form-search ">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-search pagination-centered"></i>
-                            </span>
-                            <input type="text" placeholder="search">
-
-                        </div>
-                    </form>
-                </div>
+                <div class="col-md-12">Posts</div>
             </div>
         </div>
 

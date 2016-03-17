@@ -2,17 +2,6 @@
     <div class="panel-heading">
         <div class="panel-title row">
             <div class="col-md-4">Topics</div>
-            <div class="col-md-1">
-                <form class="form-search">
-                    <div class="input-group">
-                        <span class="input-group-addon">
-                            <i class="glyphicon glyphicon-search"></i>
-                        </span>
-                        <input type="text" placeholder="search">
-
-                    </div>
-                </form>
-            </div>
         </div>
     </div>
     <ul class="list-group">

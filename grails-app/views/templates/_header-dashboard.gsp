@@ -64,11 +64,14 @@
 
 
     <div class="nav navbar-nav navbar-right" style="padding-right:20%">
-        <form class="navbar-form" role="search">
+        <g:form name="search-form" class="navbar-form" role="search" controller="search" action="show">
             <div class="input-group">
-                <input type="text" class="form-control search-main" placeholder="Search"  id="search">
+                <g:textField name="q" type="text" class="form-control search-main" placeholder="Search"  id="search"/>
+                <div class="input-group-addon">
+                    <a onclick="$('#search-form').submit(); return false;" class="" style="cursor: pointer"><i class="glyphicon glyphicon-search pagination-centered"></i></a>
+                </div>
             </div>
-        </form>
+        </g:form>
     </div>
 </nav>
 

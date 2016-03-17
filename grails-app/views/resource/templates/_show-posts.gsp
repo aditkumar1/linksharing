@@ -2,19 +2,16 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <div class="panel-title row">
-                <div class="col-md-12">Posts : (<%= topic.name %>)</div>
-            </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <form class="form-search ">
+                <div class="col-md-8">Posts : (<%= topic.name %>)</div>
+                <div class="col-md-4">
+                    <g:form   role="search" controller="search" action="show">
                         <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-search pagination-centered"></i>
-                            </span>
-                            <input type="text" placeholder="search">
-
+                            <g:textField width="20px" name="q" type="text" class="form-control" placeholder="Search" />
+                            <div class="input-group-addon">
+                                <a onclick="$(parent).parent().submit(); return false;" class="" style="cursor: pointer"><i class="glyphicon glyphicon-search"></i></a>
+                            </div>
                         </div>
-                    </form>
+                    </g:form>
                 </div>
             </div>
         </div>

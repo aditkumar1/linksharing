@@ -9,15 +9,16 @@ import com.tothenew.linkshare.topic.TopicVO
 class SearchController {
 def topicService
     def resourceService
-    def show(String topicSearch,String resourceSearch) {
+    def show() {
         List<TopicVO> topics=[]
         List<Resource> posts=[]
-        if(topicSearch){
-            topics=topicService.search(new TopicSearchCO(description: topicSearch))
-        }
-        if(resourceSearch){
-            posts=resourceService.search(new ResourceSearchCO(description: resourceSearch))
-        }
+        TopicSearchCO topicSearchCO=new TopicSearchCO()
+        bindData(topicSearchCO, params);
+       ResourceSearchCO resourceSearchCO=new ResourceSearchCO()
+        bindData(resourceSearchCO, params);
+        topics=topicService.search(topicSearchCO)
+        posts=resourceService.search(resourceSearchCO)
+       // render ([statusssss: 200]);
         [topics:topics,posts:posts]
     }
 }

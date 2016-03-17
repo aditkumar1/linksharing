@@ -4,19 +4,6 @@
             <div class="panel-title row">
                 <div class="col-md-12">Inbox</div>
             </div>
-            <div class="row">
-                <div class="col-md-12">
-                    <form class="form-search ">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                                <i class="glyphicon glyphicon-search pagination-centered"></i>
-                            </span>
-                            <input type="text" placeholder="search">
-
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
 
         <div class="panel-body">

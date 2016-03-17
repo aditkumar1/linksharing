@@ -105,8 +105,8 @@ abstract class Resource {
             if(co.id){
                 eq('createdBy.id',co.id)
             }
-            if(co?.description){
-                ilike('description',"%${co.description}%")
+            if(co?.q){
+                ilike('description',"%${co.q}%")
             }
         }
     }
